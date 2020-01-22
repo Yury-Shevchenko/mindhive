@@ -1,17 +1,29 @@
-type User {
-  id: ID!
-  name: String!
-}
-
-type School {
-  name: String!
-}
+# import * from './generated/prisma.graphql'
 
 type Query {
-  hello: String
   schools: [School]!
+  experiments: [Experiment]!
+  me: User
+  users: [User]!
 }
 
 type Mutation {
-  createSchool(name: String!): School
+  createSchool(title: String!, description: String, image: String, largeImage: String): School!
+  createExperiment(title: String!, description: String, image: String, largeImage: String): Experiment!
+  signUp(email: String!, password: String!, name: String!): User!
+  login(email: String!, password: String!): User!
+  signout: SuccessMessage
+  requestReset(email: String!): SuccessMessage
+  resetPassword(resetToken: String!, password: String!, confirmPassword: String!): User!
+}
+
+type SuccessMessage {
+  message: String
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  permissions: [Permission!]!
 }

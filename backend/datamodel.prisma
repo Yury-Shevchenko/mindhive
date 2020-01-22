@@ -1,5 +1,40 @@
+enum Permission {
+  IT
+  ADMIN
+  SCIENTIST
+  MENTOR
+  TEACHER
+  STUDENT
+  PARTICIPANT
+}
+
 type User {
   id: ID! @id
   name: String!
-  email: String!
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: String
+  permissions: [Permission] @scalarList(strategy: RELATION)
+}
+
+type School {
+  id: ID! @id
+  title: String!
+  description: String
+  image: String
+  largeImage: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Experiment {
+  id: ID! @id
+  title: String!
+  description: String
+  image: String
+  largeImage: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  author: User!
 }

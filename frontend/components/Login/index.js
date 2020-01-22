@@ -1,0 +1,95 @@
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+import { SignForm } from '../Styles/Forms';
+import Error from '../ErrorMessage/index';
+import { CURRENT_USER_QUERY } from '../User/index';
+
+import Link from 'next/link';
+
+const LOGIN_MUTATION = gql`
+  mutation LOGIN_MUTATION($email: String!, $password: String!) {
+    login(email: $email, password: $password){
+      id
+      email
+      name
+    }
+  }
+`;
+
+class Login extends Component {
+
+  state = {
+    password: '',
+    email: '',
+  }
+
+  saveToState = e => {
+    this.setState({
+      [e.target.name] : e.target.value
+    });
+  }
+
+  render() {
+    return (
+      <>
+        <Mutation
+          mutation={LOGIN_MUTATION}
+          variables={this.state}
+          refetchQueries={[
+            { query: CURRENT_USER_QUERY }
+          ]}
+        >
+          {(signUp, { error, loading }) => {
+            return (
+              <SignForm
+                method="post"
+                onSubmit={async e => {
+                  e.preventDefault();
+                  const res = await signUp();
+                  console.log('res', res);
+                  this.setState({ name: '', password: '', email: ''})
+                }}
+                >
+                <fieldset disabled={loading} aria-busy={loading}>
+                  <h3>Login</h3>
+                  <Error error={error} />
+                  <label htmlFor="email">
+                    Email
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="email"
+                      value={this.state.email}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                  <label htmlFor="password">
+                    Password
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      value={this.state.password}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                  <button type="submit">Login</button>
+                </fieldset>
+
+                <Link href="/requestreset">
+                  <a style={{float:"right"}}>Forgot your password?</a>
+                </Link>
+              </SignForm>
+            )
+          }}
+        </Mutation>
+
+
+      </>
+    );
+  }
+
+}
+
+export default Login;
