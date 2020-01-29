@@ -52,7 +52,7 @@ class AddExperiment extends Component {
             const res = await createExperiment();
             // change the page
             Router.push({
-              pathname: '/bank',
+              pathname: '/exp',
               query: { id: res.data.createExperiment.id }
             })
           }}>

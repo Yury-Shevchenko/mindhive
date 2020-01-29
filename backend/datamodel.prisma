@@ -38,3 +38,18 @@ type Experiment {
   updatedAt: DateTime! @updatedAt
   author: User!
 }
+
+type Profile {
+  id: ID! @id
+  username: String! @unique
+  permissions: [Permission] @scalarList(strategy: RELATION)
+  AuthEmail: [AuthEmail]!
+}
+
+type AuthEmail {
+  id: ID! @id
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: String
+}

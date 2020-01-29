@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
+import { StyledExperimentCard } from './styles';
+
+import DeleteExperiment from '../Experiment/Delete/index';
+
 class ExperimentCard extends Component {
   // prop types https://reactjs.org/docs/typechecking-with-proptypes.html
   static propTypes = {
@@ -13,16 +17,34 @@ class ExperimentCard extends Component {
   render() {
     const { experiment } = this.props;
     return (
-      <div>
+      <StyledExperimentCard>
         <Link href={{
-          pathname: '/bank',
-          query: {id: experiment.title}
+          pathname: '/exp',
+          query: {id: experiment.id}
         }}>
-          <a>
-            {experiment.title}
-          </a>
+            <a>
+              <h2>
+                {experiment.title}
+              </h2>
+              <p>
+                {experiment.description}
+              </p>
+            </a>
         </Link>
-      </div>
+        <Link href={{
+          pathname: '/bank/edit',
+          query: {id: experiment.id}
+        }}>
+            <a>
+              <h2>
+                Edit
+              </h2>
+            </a>
+        </Link>
+        <DeleteExperiment id={experiment.id}>
+          Delete
+        </DeleteExperiment>
+      </StyledExperimentCard>
     );
   }
 

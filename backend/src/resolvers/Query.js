@@ -10,6 +10,7 @@ const Query = {
    // },
    schools: forwardTo('db'),
    experiments: forwardTo('db'),
+   experiment: forwardTo('db'),
 
    me(parent, args, ctx, info){
      // check if there is a current user id

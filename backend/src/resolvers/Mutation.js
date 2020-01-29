@@ -38,6 +38,34 @@ const Mutations = {
     }, info);
     return experiment;
   },
+
+  // update the experiment
+  updateExperiment(parent, args, ctx, info) {
+    // take a copy of updates
+    const updates = { ... args };
+    // remove the ID from the updates
+    delete updates.id;
+    // run the update method
+    return ctx.db.mutation.updateExperiment({
+      data: updates,
+      where: {
+        id: args.id
+      }
+    }, info)
+  },
+
+  // delete experiment
+  async deleteExperiment(parent, args, ctx, info) {
+    const where = {id : args.id};
+    // find experiment
+    const experiment = await ctx.db.query.experiment({ where }, `{ id title }`);
+    // check whether user has permissions to delete the item
+    // TODO
+    // delete it
+    return ctx.db.mutation.deleteExperiment({ where }, info);
+  },
+
+
   // sign up a new user
   async signUp(parent, args, ctx, info){
     args.email = args.email.toLowerCase() // lower case email address

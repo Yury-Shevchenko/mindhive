@@ -5,16 +5,20 @@ type Query {
   experiments: [Experiment]!
   me: User
   users: [User]!
+  experiment(where: ExperimentWhereUniqueInput): Experiment
 }
 
 type Mutation {
   createSchool(title: String!, description: String, image: String, largeImage: String): School!
   createExperiment(title: String!, description: String, image: String, largeImage: String): Experiment!
+  updateExperiment(id: ID!, title: String, description: String): Experiment!
+  deleteExperiment(id: ID!): Experiment
   signUp(email: String!, password: String!, name: String!): User!
   login(email: String!, password: String!): User!
   signout: SuccessMessage
   requestReset(email: String!): SuccessMessage
   resetPassword(resetToken: String!, password: String!, confirmPassword: String!): User!
+  emailSignUp(email: String!, password: String!, username: String!): Profile!
 }
 
 type SuccessMessage {
