@@ -8,16 +8,6 @@ enum Permission {
   PARTICIPANT
 }
 
-type User {
-  id: ID! @id
-  name: String!
-  email: String! @unique
-  password: String!
-  resetToken: String
-  resetTokenExpiry: String
-  permissions: [Permission] @scalarList(strategy: RELATION)
-}
-
 type School {
   id: ID! @id
   title: String!
@@ -36,14 +26,14 @@ type Experiment {
   largeImage: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  author: User!
+  author: Profile!
 }
 
 type Profile {
   id: ID! @id
   username: String! @unique
   permissions: [Permission] @scalarList(strategy: RELATION)
-  AuthEmail: [AuthEmail]!
+  authEmail: [AuthEmail]!
 }
 
 type AuthEmail {
@@ -52,4 +42,5 @@ type AuthEmail {
   password: String!
   resetToken: String
   resetTokenExpiry: String
+  profile: Profile!
 }

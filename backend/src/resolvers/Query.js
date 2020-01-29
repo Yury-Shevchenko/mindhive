@@ -17,7 +17,7 @@ const Query = {
      if(!ctx.request.userId) {
        return null;
      }
-     return ctx.db.query.user({
+     return ctx.db.query.profile({
        where: { id: ctx.request.userId }
      }, info);
    },
@@ -29,7 +29,7 @@ const Query = {
      };
      hasPermission(ctx.request.user, ['IT']);
      // query all users
-     return ctx.db.query.users({}, info);
+     return ctx.db.query.profiles({}, info);
    },
 
 };

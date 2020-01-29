@@ -9,10 +9,10 @@ import Link from 'next/link';
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
-    login(email: $email, password: $password){
+    emailLogin(email: $email, password: $password){
       id
-      email
-      name
+      username
+      permissions
     }
   }
 `;
@@ -40,15 +40,15 @@ class Login extends Component {
             { query: CURRENT_USER_QUERY }
           ]}
         >
-          {(signUp, { error, loading }) => {
+          {(emailLogin, { error, loading }) => {
             return (
               <SignForm
                 method="post"
                 onSubmit={async e => {
                   e.preventDefault();
-                  const res = await signUp();
+                  const res = await emailLogin();
                   console.log('res', res);
-                  this.setState({ name: '', password: '', email: ''})
+                  this.setState({ password: '', email: ''})
                 }}
                 >
                 <fieldset disabled={loading} aria-busy={loading}>

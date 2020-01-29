@@ -3,31 +3,30 @@
 type Query {
   schools: [School]!
   experiments: [Experiment]!
-  me: User
-  users: [User]!
+  me: Profile
+  users: [Profile]!
   experiment(where: ExperimentWhereUniqueInput): Experiment
 }
 
 type Mutation {
+  emailSignUp(email: String!, password: String!, username: String!): Profile!
+  emailLogin(email: String!, password: String!): Profile!
+  signout: SuccessMessage
+  requestReset(email: String!): SuccessMessage
+  resetPassword(resetToken: String!, password: String!, confirmPassword: String!): Profile!
+
   createSchool(title: String!, description: String, image: String, largeImage: String): School!
   createExperiment(title: String!, description: String, image: String, largeImage: String): Experiment!
   updateExperiment(id: ID!, title: String, description: String): Experiment!
   deleteExperiment(id: ID!): Experiment
-  signUp(email: String!, password: String!, name: String!): User!
-  login(email: String!, password: String!): User!
-  signout: SuccessMessage
-  requestReset(email: String!): SuccessMessage
-  resetPassword(resetToken: String!, password: String!, confirmPassword: String!): User!
-  emailSignUp(email: String!, password: String!, username: String!): Profile!
 }
 
 type SuccessMessage {
   message: String
 }
 
-type User {
+type Profile {
   id: ID!
-  name: String!
-  email: String!
+  username: String!
   permissions: [Permission!]!
 }
