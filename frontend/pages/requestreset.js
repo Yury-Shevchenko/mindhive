@@ -1,9 +1,10 @@
 import RequestReset from '../components/RequestReset/index'
+import Page from '../components/Page/index';
 
 const RequestResetPage = props => (
-  <div>
+  <Page>
     <RequestReset />
-  </div>
+  </Page>
 );
 
 export default RequestResetPage;

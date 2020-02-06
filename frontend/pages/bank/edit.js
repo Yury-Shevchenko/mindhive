@@ -1,12 +1,13 @@
 import UpdateExperiment from '../../components/UpdateExperiment/index'
 import OnlyForScientists from '../../components/Permissions/Scientist/index';
+import Page from '../../components/Page/index';
 
 const UpdateExperimentPage = ({query}) => (
-  <div>
+  <Page>
     <OnlyForScientists>
       <UpdateExperiment id={query.id}/>
     </OnlyForScientists>
-  </div>
+  </Page>
 );
 
 export default UpdateExperimentPage;

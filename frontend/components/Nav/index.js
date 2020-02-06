@@ -3,6 +3,9 @@ import NavStyles from './styles';
 import User from '../User/index';
 import Signout from '../Signout/index';
 
+import { Mutation } from 'react-apollo';
+import { TOGGLE_DASHBOARD_MUTATION } from '../Dashboard/index';
+
 const Nav = () => (
 
     <User>
@@ -23,10 +26,12 @@ const Nav = () => (
 
           {me && (
             <>
-              <Link href="/">
-                <a>Dashboard</a>
-              </Link>
               <Signout />
+              <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
+                { (toggleDashboard) => (
+                  <button onClick={toggleDashboard}>Dashboard</button>
+                )}
+              </Mutation>
             </>
           )}
 

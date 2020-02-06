@@ -15,10 +15,18 @@ type Mutation {
   requestReset(email: String!): SuccessMessage
   resetPassword(resetToken: String!, password: String!, confirmPassword: String!): Profile!
 
+  tokenSignUp(username: String!, token: String!): Profile!
+  tokenLogin(token: String!): Profile!
+
+  inviteSignUp(username: String!, invitedBy: ID!): Profile!
+  inviteLogin(username: String!, invitedBy: ID!): Profile!
+
   createSchool(title: String!, description: String, image: String, largeImage: String): School!
   createExperiment(title: String!, description: String, image: String, largeImage: String): Experiment!
   updateExperiment(id: ID!, title: String, description: String): Experiment!
   deleteExperiment(id: ID!): Experiment
+
+  addResult(experimentId: ID!): Result!
 }
 
 type SuccessMessage {
@@ -29,4 +37,5 @@ type Profile {
   id: ID!
   username: String!
   permissions: [Permission!]!
+  results: [Result]!
 }

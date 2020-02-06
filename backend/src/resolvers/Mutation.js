@@ -1,8 +1,10 @@
 const authMutations = require('./mutations/authMutations');
+const resultsMutations = require('./mutations/resultsMutations');
 
 const Mutations = {
 
   ...authMutations,
+  ...resultsMutations,
 
   async createSchool(parent, args, ctx, info){
     // TODO: Check login
@@ -56,9 +58,15 @@ const Mutations = {
   async deleteExperiment(parent, args, ctx, info) {
     const where = {id : args.id};
     // find experiment
-    const experiment = await ctx.db.query.experiment({ where }, `{ id title }`);
+    const experiment = await ctx.db.query.experiment({ where }, `{ id title author {id} }`);
     // check whether user has permissions to delete the item
     // TODO
+    const ownsExperiment = experiment.author.id === ctx.request.userId;
+    const hasPermissions = ctx.request.user.permissions.some(permission => ['ADMIN'].includes(permission));
+    if(!ownsExperiment && !hasPermissions){
+      throw new Error(`You don't have permission to do that!`)
+    }
+
     // delete it
     return ctx.db.mutation.deleteExperiment({ where }, info);
   },

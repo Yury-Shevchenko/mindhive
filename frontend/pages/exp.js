@@ -1,9 +1,10 @@
 import ReviewExperiment from '../components/Experiment/Review/index';
+import Page from '../components/Page/index';
 
 const ExperimentPage = props => (
-    <div>
-        <ReviewExperiment id={props.query.id} />
-    </div>
+    <Page>
+      <ReviewExperiment id={props.query.id} />
+    </Page>
 );
 
 export default ExperimentPage;

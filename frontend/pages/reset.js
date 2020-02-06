@@ -1,9 +1,10 @@
 import Reset from '../components/Reset/index'
+import Page from '../components/Page/index';
 
 const ResetPage = props => (
-  <div>
+  <Page>
     <Reset resetToken={props.query.resetToken} />
-  </div>
+  </Page>
 );
 
 export default ResetPage;

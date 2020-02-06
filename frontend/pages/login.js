@@ -1,9 +1,10 @@
-import Login from '../components/Login/index'
+import Login from '../components/Login/Email/index'
+import Page from '../components/Page/index';
 
 const LoginPage = props => (
-  <div>
+  <Page>
     <Login />
-  </div>
+  </Page>
 );
 
 export default LoginPage;

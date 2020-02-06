@@ -44,6 +44,16 @@ class ExperimentCard extends Component {
         <DeleteExperiment id={experiment.id}>
           Delete
         </DeleteExperiment>
+        <Link href={{
+          pathname: '/exp/run',
+          query: {id: experiment.id}
+        }}>
+            <a>
+              <h2>
+                Run
+              </h2>
+            </a>
+        </Link>
       </StyledExperimentCard>
     );
   }

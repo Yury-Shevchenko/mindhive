@@ -1,12 +1,13 @@
 import AddExperiment from '../../components/AddExperiment/index'
 import OnlyForScientists from '../../components/Permissions/Scientist/index';
+import Page from '../../components/Page/index';
 
 const AddExperimentPage = props => (
-  <div>
+  <Page>
     <OnlyForScientists>
       <AddExperiment />
     </OnlyForScientists>
-  </div>
+  </Page>
 );
 
 export default AddExperimentPage;

@@ -39,7 +39,9 @@ class DeleteExperiment extends Component {
           <button
             onClick={ () => {
               if(confirm('Are you sure you want to delete this experiment?')) {
-                deleteExperiment();
+                deleteExperiment().catch(err => {
+                  alert(err.message)
+                });
               }
             }}
           >

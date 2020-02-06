@@ -24,7 +24,7 @@ class Experiments extends Component {
   render() {
     return (
       <Center>
-        <p>Experiments</p>
+        <h1>Experiments</h1>
         <Query query={ALL_EXPERIMENTS_QUERY}>
           { ({data, error, loading}) => {
             console.log('data', data);

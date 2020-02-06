@@ -1,7 +1,15 @@
 # source: https://eu1.prisma.sh/shevchenko_yury-d70d0e/mindHive-backend/dev
-# timestamp: Wed Jan 29 2020 12:13:15 GMT+0100 (Central European Standard Time)
+# timestamp: Thu Feb 06 2020 17:20:29 GMT+0100 (Central European Standard Time)
 
 type AggregateAuthEmail {
+  count: Int!
+}
+
+type AggregateAuthInvite {
+  count: Int!
+}
+
+type AggregateAuthToken {
   count: Int!
 }
 
@@ -10,6 +18,10 @@ type AggregateExperiment {
 }
 
 type AggregateProfile {
+  count: Int!
+}
+
+type AggregateResult {
   count: Int!
 }
 
@@ -612,6 +624,685 @@ input AuthEmailWhereUniqueInput {
   email: String
 }
 
+type AuthInvite implements Node {
+  id: ID!
+  profile: Profile!
+  invitedBy: Profile!
+}
+
+"""A connection to a list of items."""
+type AuthInviteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AuthInviteEdge]!
+  aggregate: AggregateAuthInvite!
+}
+
+input AuthInviteCreateInput {
+  id: ID
+  profile: ProfileCreateOneWithoutAuthInviteInput!
+  invitedBy: ProfileCreateOneWithoutInvitesInput!
+}
+
+input AuthInviteCreateManyWithoutInvitedByInput {
+  create: [AuthInviteCreateWithoutInvitedByInput!]
+  connect: [AuthInviteWhereUniqueInput!]
+}
+
+input AuthInviteCreateManyWithoutProfileInput {
+  create: [AuthInviteCreateWithoutProfileInput!]
+  connect: [AuthInviteWhereUniqueInput!]
+}
+
+input AuthInviteCreateWithoutInvitedByInput {
+  id: ID
+  profile: ProfileCreateOneWithoutAuthInviteInput!
+}
+
+input AuthInviteCreateWithoutProfileInput {
+  id: ID
+  invitedBy: ProfileCreateOneWithoutInvitesInput!
+}
+
+"""An edge in a connection."""
+type AuthInviteEdge {
+  """The item at the end of the edge."""
+  node: AuthInvite!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AuthInviteOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type AuthInvitePreviousValues {
+  id: ID!
+}
+
+input AuthInviteScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AuthInviteScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AuthInviteScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AuthInviteScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+}
+
+type AuthInviteSubscriptionPayload {
+  mutation: MutationType!
+  node: AuthInvite
+  updatedFields: [String!]
+  previousValues: AuthInvitePreviousValues
+}
+
+input AuthInviteSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AuthInviteSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AuthInviteSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AuthInviteSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AuthInviteWhereInput
+}
+
+input AuthInviteUpdateInput {
+  profile: ProfileUpdateOneRequiredWithoutAuthInviteInput
+  invitedBy: ProfileUpdateOneRequiredWithoutInvitesInput
+}
+
+input AuthInviteUpdateManyWithoutInvitedByInput {
+  create: [AuthInviteCreateWithoutInvitedByInput!]
+  connect: [AuthInviteWhereUniqueInput!]
+  set: [AuthInviteWhereUniqueInput!]
+  disconnect: [AuthInviteWhereUniqueInput!]
+  delete: [AuthInviteWhereUniqueInput!]
+  update: [AuthInviteUpdateWithWhereUniqueWithoutInvitedByInput!]
+  deleteMany: [AuthInviteScalarWhereInput!]
+  upsert: [AuthInviteUpsertWithWhereUniqueWithoutInvitedByInput!]
+}
+
+input AuthInviteUpdateManyWithoutProfileInput {
+  create: [AuthInviteCreateWithoutProfileInput!]
+  connect: [AuthInviteWhereUniqueInput!]
+  set: [AuthInviteWhereUniqueInput!]
+  disconnect: [AuthInviteWhereUniqueInput!]
+  delete: [AuthInviteWhereUniqueInput!]
+  update: [AuthInviteUpdateWithWhereUniqueWithoutProfileInput!]
+  deleteMany: [AuthInviteScalarWhereInput!]
+  upsert: [AuthInviteUpsertWithWhereUniqueWithoutProfileInput!]
+}
+
+input AuthInviteUpdateWithoutInvitedByDataInput {
+  profile: ProfileUpdateOneRequiredWithoutAuthInviteInput
+}
+
+input AuthInviteUpdateWithoutProfileDataInput {
+  invitedBy: ProfileUpdateOneRequiredWithoutInvitesInput
+}
+
+input AuthInviteUpdateWithWhereUniqueWithoutInvitedByInput {
+  where: AuthInviteWhereUniqueInput!
+  data: AuthInviteUpdateWithoutInvitedByDataInput!
+}
+
+input AuthInviteUpdateWithWhereUniqueWithoutProfileInput {
+  where: AuthInviteWhereUniqueInput!
+  data: AuthInviteUpdateWithoutProfileDataInput!
+}
+
+input AuthInviteUpsertWithWhereUniqueWithoutInvitedByInput {
+  where: AuthInviteWhereUniqueInput!
+  update: AuthInviteUpdateWithoutInvitedByDataInput!
+  create: AuthInviteCreateWithoutInvitedByInput!
+}
+
+input AuthInviteUpsertWithWhereUniqueWithoutProfileInput {
+  where: AuthInviteWhereUniqueInput!
+  update: AuthInviteUpdateWithoutProfileDataInput!
+  create: AuthInviteCreateWithoutProfileInput!
+}
+
+input AuthInviteWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AuthInviteWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AuthInviteWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AuthInviteWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  profile: ProfileWhereInput
+  invitedBy: ProfileWhereInput
+}
+
+input AuthInviteWhereUniqueInput {
+  id: ID
+}
+
+type AuthToken implements Node {
+  id: ID!
+  token: String!
+  tokenExpiry: String
+  profile: Profile!
+}
+
+"""A connection to a list of items."""
+type AuthTokenConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AuthTokenEdge]!
+  aggregate: AggregateAuthToken!
+}
+
+input AuthTokenCreateInput {
+  id: ID
+  token: String!
+  tokenExpiry: String
+  profile: ProfileCreateOneWithoutAuthTokenInput!
+}
+
+input AuthTokenCreateManyWithoutProfileInput {
+  create: [AuthTokenCreateWithoutProfileInput!]
+  connect: [AuthTokenWhereUniqueInput!]
+}
+
+input AuthTokenCreateWithoutProfileInput {
+  id: ID
+  token: String!
+  tokenExpiry: String
+}
+
+"""An edge in a connection."""
+type AuthTokenEdge {
+  """The item at the end of the edge."""
+  node: AuthToken!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AuthTokenOrderByInput {
+  id_ASC
+  id_DESC
+  token_ASC
+  token_DESC
+  tokenExpiry_ASC
+  tokenExpiry_DESC
+}
+
+type AuthTokenPreviousValues {
+  id: ID!
+  token: String!
+  tokenExpiry: String
+}
+
+input AuthTokenScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AuthTokenScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AuthTokenScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AuthTokenScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  token: String
+
+  """All values that are not equal to given value."""
+  token_not: String
+
+  """All values that are contained in given list."""
+  token_in: [String!]
+
+  """All values that are not contained in given list."""
+  token_not_in: [String!]
+
+  """All values less than the given value."""
+  token_lt: String
+
+  """All values less than or equal the given value."""
+  token_lte: String
+
+  """All values greater than the given value."""
+  token_gt: String
+
+  """All values greater than or equal the given value."""
+  token_gte: String
+
+  """All values containing the given string."""
+  token_contains: String
+
+  """All values not containing the given string."""
+  token_not_contains: String
+
+  """All values starting with the given string."""
+  token_starts_with: String
+
+  """All values not starting with the given string."""
+  token_not_starts_with: String
+
+  """All values ending with the given string."""
+  token_ends_with: String
+
+  """All values not ending with the given string."""
+  token_not_ends_with: String
+  tokenExpiry: String
+
+  """All values that are not equal to given value."""
+  tokenExpiry_not: String
+
+  """All values that are contained in given list."""
+  tokenExpiry_in: [String!]
+
+  """All values that are not contained in given list."""
+  tokenExpiry_not_in: [String!]
+
+  """All values less than the given value."""
+  tokenExpiry_lt: String
+
+  """All values less than or equal the given value."""
+  tokenExpiry_lte: String
+
+  """All values greater than the given value."""
+  tokenExpiry_gt: String
+
+  """All values greater than or equal the given value."""
+  tokenExpiry_gte: String
+
+  """All values containing the given string."""
+  tokenExpiry_contains: String
+
+  """All values not containing the given string."""
+  tokenExpiry_not_contains: String
+
+  """All values starting with the given string."""
+  tokenExpiry_starts_with: String
+
+  """All values not starting with the given string."""
+  tokenExpiry_not_starts_with: String
+
+  """All values ending with the given string."""
+  tokenExpiry_ends_with: String
+
+  """All values not ending with the given string."""
+  tokenExpiry_not_ends_with: String
+}
+
+type AuthTokenSubscriptionPayload {
+  mutation: MutationType!
+  node: AuthToken
+  updatedFields: [String!]
+  previousValues: AuthTokenPreviousValues
+}
+
+input AuthTokenSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AuthTokenSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AuthTokenSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AuthTokenSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AuthTokenWhereInput
+}
+
+input AuthTokenUpdateInput {
+  token: String
+  tokenExpiry: String
+  profile: ProfileUpdateOneRequiredWithoutAuthTokenInput
+}
+
+input AuthTokenUpdateManyDataInput {
+  token: String
+  tokenExpiry: String
+}
+
+input AuthTokenUpdateManyMutationInput {
+  token: String
+  tokenExpiry: String
+}
+
+input AuthTokenUpdateManyWithoutProfileInput {
+  create: [AuthTokenCreateWithoutProfileInput!]
+  connect: [AuthTokenWhereUniqueInput!]
+  set: [AuthTokenWhereUniqueInput!]
+  disconnect: [AuthTokenWhereUniqueInput!]
+  delete: [AuthTokenWhereUniqueInput!]
+  update: [AuthTokenUpdateWithWhereUniqueWithoutProfileInput!]
+  updateMany: [AuthTokenUpdateManyWithWhereNestedInput!]
+  deleteMany: [AuthTokenScalarWhereInput!]
+  upsert: [AuthTokenUpsertWithWhereUniqueWithoutProfileInput!]
+}
+
+input AuthTokenUpdateManyWithWhereNestedInput {
+  where: AuthTokenScalarWhereInput!
+  data: AuthTokenUpdateManyDataInput!
+}
+
+input AuthTokenUpdateWithoutProfileDataInput {
+  token: String
+  tokenExpiry: String
+}
+
+input AuthTokenUpdateWithWhereUniqueWithoutProfileInput {
+  where: AuthTokenWhereUniqueInput!
+  data: AuthTokenUpdateWithoutProfileDataInput!
+}
+
+input AuthTokenUpsertWithWhereUniqueWithoutProfileInput {
+  where: AuthTokenWhereUniqueInput!
+  update: AuthTokenUpdateWithoutProfileDataInput!
+  create: AuthTokenCreateWithoutProfileInput!
+}
+
+input AuthTokenWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AuthTokenWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AuthTokenWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AuthTokenWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  token: String
+
+  """All values that are not equal to given value."""
+  token_not: String
+
+  """All values that are contained in given list."""
+  token_in: [String!]
+
+  """All values that are not contained in given list."""
+  token_not_in: [String!]
+
+  """All values less than the given value."""
+  token_lt: String
+
+  """All values less than or equal the given value."""
+  token_lte: String
+
+  """All values greater than the given value."""
+  token_gt: String
+
+  """All values greater than or equal the given value."""
+  token_gte: String
+
+  """All values containing the given string."""
+  token_contains: String
+
+  """All values not containing the given string."""
+  token_not_contains: String
+
+  """All values starting with the given string."""
+  token_starts_with: String
+
+  """All values not starting with the given string."""
+  token_not_starts_with: String
+
+  """All values ending with the given string."""
+  token_ends_with: String
+
+  """All values not ending with the given string."""
+  token_not_ends_with: String
+  tokenExpiry: String
+
+  """All values that are not equal to given value."""
+  tokenExpiry_not: String
+
+  """All values that are contained in given list."""
+  tokenExpiry_in: [String!]
+
+  """All values that are not contained in given list."""
+  tokenExpiry_not_in: [String!]
+
+  """All values less than the given value."""
+  tokenExpiry_lt: String
+
+  """All values less than or equal the given value."""
+  tokenExpiry_lte: String
+
+  """All values greater than the given value."""
+  tokenExpiry_gt: String
+
+  """All values greater than or equal the given value."""
+  tokenExpiry_gte: String
+
+  """All values containing the given string."""
+  tokenExpiry_contains: String
+
+  """All values not containing the given string."""
+  tokenExpiry_not_contains: String
+
+  """All values starting with the given string."""
+  tokenExpiry_starts_with: String
+
+  """All values not starting with the given string."""
+  tokenExpiry_not_starts_with: String
+
+  """All values ending with the given string."""
+  tokenExpiry_ends_with: String
+
+  """All values not ending with the given string."""
+  tokenExpiry_not_ends_with: String
+  profile: ProfileWhereInput
+}
+
+input AuthTokenWhereUniqueInput {
+  id: ID
+  token: String
+}
+
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
@@ -647,6 +1338,11 @@ input ExperimentCreateInput {
   image: String
   largeImage: String
   author: ProfileCreateOneInput!
+}
+
+input ExperimentCreateOneInput {
+  create: ExperimentCreateInput
+  connect: ExperimentWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -724,6 +1420,14 @@ input ExperimentSubscriptionWhereInput {
   node: ExperimentWhereInput
 }
 
+input ExperimentUpdateDataInput {
+  title: String
+  description: String
+  image: String
+  largeImage: String
+  author: ProfileUpdateOneRequiredInput
+}
+
 input ExperimentUpdateInput {
   title: String
   description: String
@@ -737,6 +1441,18 @@ input ExperimentUpdateManyMutationInput {
   description: String
   image: String
   largeImage: String
+}
+
+input ExperimentUpdateOneRequiredInput {
+  create: ExperimentCreateInput
+  connect: ExperimentWhereUniqueInput
+  update: ExperimentUpdateDataInput
+  upsert: ExperimentUpsertNestedInput
+}
+
+input ExperimentUpsertNestedInput {
+  update: ExperimentUpdateDataInput!
+  create: ExperimentCreateInput!
 }
 
 input ExperimentWhereInput {
@@ -1006,29 +1722,46 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createSchool(data: SchoolCreateInput!): School!
-  createExperiment(data: ExperimentCreateInput!): Experiment!
   createAuthEmail(data: AuthEmailCreateInput!): AuthEmail!
+  createAuthToken(data: AuthTokenCreateInput!): AuthToken!
+  createAuthInvite(data: AuthInviteCreateInput!): AuthInvite!
+  createSchool(data: SchoolCreateInput!): School!
+  createResult(data: ResultCreateInput!): Result!
+  createExperiment(data: ExperimentCreateInput!): Experiment!
   createProfile(data: ProfileCreateInput!): Profile!
-  updateSchool(data: SchoolUpdateInput!, where: SchoolWhereUniqueInput!): School
-  updateExperiment(data: ExperimentUpdateInput!, where: ExperimentWhereUniqueInput!): Experiment
   updateAuthEmail(data: AuthEmailUpdateInput!, where: AuthEmailWhereUniqueInput!): AuthEmail
+  updateAuthToken(data: AuthTokenUpdateInput!, where: AuthTokenWhereUniqueInput!): AuthToken
+  updateAuthInvite(data: AuthInviteUpdateInput!, where: AuthInviteWhereUniqueInput!): AuthInvite
+  updateSchool(data: SchoolUpdateInput!, where: SchoolWhereUniqueInput!): School
+  updateResult(data: ResultUpdateInput!, where: ResultWhereUniqueInput!): Result
+  updateExperiment(data: ExperimentUpdateInput!, where: ExperimentWhereUniqueInput!): Experiment
   updateProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
-  deleteSchool(where: SchoolWhereUniqueInput!): School
-  deleteExperiment(where: ExperimentWhereUniqueInput!): Experiment
   deleteAuthEmail(where: AuthEmailWhereUniqueInput!): AuthEmail
+  deleteAuthToken(where: AuthTokenWhereUniqueInput!): AuthToken
+  deleteAuthInvite(where: AuthInviteWhereUniqueInput!): AuthInvite
+  deleteSchool(where: SchoolWhereUniqueInput!): School
+  deleteResult(where: ResultWhereUniqueInput!): Result
+  deleteExperiment(where: ExperimentWhereUniqueInput!): Experiment
   deleteProfile(where: ProfileWhereUniqueInput!): Profile
-  upsertSchool(where: SchoolWhereUniqueInput!, create: SchoolCreateInput!, update: SchoolUpdateInput!): School!
-  upsertExperiment(where: ExperimentWhereUniqueInput!, create: ExperimentCreateInput!, update: ExperimentUpdateInput!): Experiment!
   upsertAuthEmail(where: AuthEmailWhereUniqueInput!, create: AuthEmailCreateInput!, update: AuthEmailUpdateInput!): AuthEmail!
+  upsertAuthToken(where: AuthTokenWhereUniqueInput!, create: AuthTokenCreateInput!, update: AuthTokenUpdateInput!): AuthToken!
+  upsertAuthInvite(where: AuthInviteWhereUniqueInput!, create: AuthInviteCreateInput!, update: AuthInviteUpdateInput!): AuthInvite!
+  upsertSchool(where: SchoolWhereUniqueInput!, create: SchoolCreateInput!, update: SchoolUpdateInput!): School!
+  upsertResult(where: ResultWhereUniqueInput!, create: ResultCreateInput!, update: ResultUpdateInput!): Result!
+  upsertExperiment(where: ExperimentWhereUniqueInput!, create: ExperimentCreateInput!, update: ExperimentUpdateInput!): Experiment!
   upsertProfile(where: ProfileWhereUniqueInput!, create: ProfileCreateInput!, update: ProfileUpdateInput!): Profile!
-  updateManySchools(data: SchoolUpdateManyMutationInput!, where: SchoolWhereInput): BatchPayload!
-  updateManyExperiments(data: ExperimentUpdateManyMutationInput!, where: ExperimentWhereInput): BatchPayload!
   updateManyAuthEmails(data: AuthEmailUpdateManyMutationInput!, where: AuthEmailWhereInput): BatchPayload!
+  updateManyAuthTokens(data: AuthTokenUpdateManyMutationInput!, where: AuthTokenWhereInput): BatchPayload!
+  updateManySchools(data: SchoolUpdateManyMutationInput!, where: SchoolWhereInput): BatchPayload!
+  updateManyResults(data: ResultUpdateManyMutationInput!, where: ResultWhereInput): BatchPayload!
+  updateManyExperiments(data: ExperimentUpdateManyMutationInput!, where: ExperimentWhereInput): BatchPayload!
   updateManyProfiles(data: ProfileUpdateManyMutationInput!, where: ProfileWhereInput): BatchPayload!
-  deleteManySchools(where: SchoolWhereInput): BatchPayload!
-  deleteManyExperiments(where: ExperimentWhereInput): BatchPayload!
   deleteManyAuthEmails(where: AuthEmailWhereInput): BatchPayload!
+  deleteManyAuthTokens(where: AuthTokenWhereInput): BatchPayload!
+  deleteManyAuthInvites(where: AuthInviteWhereInput): BatchPayload!
+  deleteManySchools(where: SchoolWhereInput): BatchPayload!
+  deleteManyResults(where: ResultWhereInput): BatchPayload!
+  deleteManyExperiments(where: ExperimentWhereInput): BatchPayload!
   deleteManyProfiles(where: ProfileWhereInput): BatchPayload!
 }
 
@@ -1074,6 +1807,10 @@ type Profile implements Node {
   username: String!
   permissions: [Permission!]!
   authEmail(where: AuthEmailWhereInput, orderBy: AuthEmailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthEmail!]
+  authToken(where: AuthTokenWhereInput, orderBy: AuthTokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthToken!]
+  authInvite(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthInvite!]
+  invites(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthInvite!]
+  results(where: ResultWhereInput, orderBy: ResultOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Result!]
 }
 
 """A connection to a list of items."""
@@ -1091,6 +1828,10 @@ input ProfileCreateInput {
   username: String!
   permissions: ProfileCreatepermissionsInput
   authEmail: AuthEmailCreateManyWithoutProfileInput
+  authToken: AuthTokenCreateManyWithoutProfileInput
+  authInvite: AuthInviteCreateManyWithoutProfileInput
+  invites: AuthInviteCreateManyWithoutInvitedByInput
+  results: ResultCreateManyWithoutUserInput
 }
 
 input ProfileCreateOneInput {
@@ -1103,6 +1844,26 @@ input ProfileCreateOneWithoutAuthEmailInput {
   connect: ProfileWhereUniqueInput
 }
 
+input ProfileCreateOneWithoutAuthInviteInput {
+  create: ProfileCreateWithoutAuthInviteInput
+  connect: ProfileWhereUniqueInput
+}
+
+input ProfileCreateOneWithoutAuthTokenInput {
+  create: ProfileCreateWithoutAuthTokenInput
+  connect: ProfileWhereUniqueInput
+}
+
+input ProfileCreateOneWithoutInvitesInput {
+  create: ProfileCreateWithoutInvitesInput
+  connect: ProfileWhereUniqueInput
+}
+
+input ProfileCreateOneWithoutResultsInput {
+  create: ProfileCreateWithoutResultsInput
+  connect: ProfileWhereUniqueInput
+}
+
 input ProfileCreatepermissionsInput {
   set: [Permission!]
 }
@@ -1111,6 +1872,50 @@ input ProfileCreateWithoutAuthEmailInput {
   id: ID
   username: String!
   permissions: ProfileCreatepermissionsInput
+  authToken: AuthTokenCreateManyWithoutProfileInput
+  authInvite: AuthInviteCreateManyWithoutProfileInput
+  invites: AuthInviteCreateManyWithoutInvitedByInput
+  results: ResultCreateManyWithoutUserInput
+}
+
+input ProfileCreateWithoutAuthInviteInput {
+  id: ID
+  username: String!
+  permissions: ProfileCreatepermissionsInput
+  authEmail: AuthEmailCreateManyWithoutProfileInput
+  authToken: AuthTokenCreateManyWithoutProfileInput
+  invites: AuthInviteCreateManyWithoutInvitedByInput
+  results: ResultCreateManyWithoutUserInput
+}
+
+input ProfileCreateWithoutAuthTokenInput {
+  id: ID
+  username: String!
+  permissions: ProfileCreatepermissionsInput
+  authEmail: AuthEmailCreateManyWithoutProfileInput
+  authInvite: AuthInviteCreateManyWithoutProfileInput
+  invites: AuthInviteCreateManyWithoutInvitedByInput
+  results: ResultCreateManyWithoutUserInput
+}
+
+input ProfileCreateWithoutInvitesInput {
+  id: ID
+  username: String!
+  permissions: ProfileCreatepermissionsInput
+  authEmail: AuthEmailCreateManyWithoutProfileInput
+  authToken: AuthTokenCreateManyWithoutProfileInput
+  authInvite: AuthInviteCreateManyWithoutProfileInput
+  results: ResultCreateManyWithoutUserInput
+}
+
+input ProfileCreateWithoutResultsInput {
+  id: ID
+  username: String!
+  permissions: ProfileCreatepermissionsInput
+  authEmail: AuthEmailCreateManyWithoutProfileInput
+  authToken: AuthTokenCreateManyWithoutProfileInput
+  authInvite: AuthInviteCreateManyWithoutProfileInput
+  invites: AuthInviteCreateManyWithoutInvitedByInput
 }
 
 """An edge in a connection."""
@@ -1178,12 +1983,20 @@ input ProfileUpdateDataInput {
   username: String
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
+  authToken: AuthTokenUpdateManyWithoutProfileInput
+  authInvite: AuthInviteUpdateManyWithoutProfileInput
+  invites: AuthInviteUpdateManyWithoutInvitedByInput
+  results: ResultUpdateManyWithoutUserInput
 }
 
 input ProfileUpdateInput {
   username: String
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
+  authToken: AuthTokenUpdateManyWithoutProfileInput
+  authInvite: AuthInviteUpdateManyWithoutProfileInput
+  invites: AuthInviteUpdateManyWithoutInvitedByInput
+  results: ResultUpdateManyWithoutUserInput
 }
 
 input ProfileUpdateManyMutationInput {
@@ -1205,6 +2018,34 @@ input ProfileUpdateOneRequiredWithoutAuthEmailInput {
   upsert: ProfileUpsertWithoutAuthEmailInput
 }
 
+input ProfileUpdateOneRequiredWithoutAuthInviteInput {
+  create: ProfileCreateWithoutAuthInviteInput
+  connect: ProfileWhereUniqueInput
+  update: ProfileUpdateWithoutAuthInviteDataInput
+  upsert: ProfileUpsertWithoutAuthInviteInput
+}
+
+input ProfileUpdateOneRequiredWithoutAuthTokenInput {
+  create: ProfileCreateWithoutAuthTokenInput
+  connect: ProfileWhereUniqueInput
+  update: ProfileUpdateWithoutAuthTokenDataInput
+  upsert: ProfileUpsertWithoutAuthTokenInput
+}
+
+input ProfileUpdateOneRequiredWithoutInvitesInput {
+  create: ProfileCreateWithoutInvitesInput
+  connect: ProfileWhereUniqueInput
+  update: ProfileUpdateWithoutInvitesDataInput
+  upsert: ProfileUpsertWithoutInvitesInput
+}
+
+input ProfileUpdateOneRequiredWithoutResultsInput {
+  create: ProfileCreateWithoutResultsInput
+  connect: ProfileWhereUniqueInput
+  update: ProfileUpdateWithoutResultsDataInput
+  upsert: ProfileUpsertWithoutResultsInput
+}
+
 input ProfileUpdatepermissionsInput {
   set: [Permission!]
 }
@@ -1212,6 +2053,46 @@ input ProfileUpdatepermissionsInput {
 input ProfileUpdateWithoutAuthEmailDataInput {
   username: String
   permissions: ProfileUpdatepermissionsInput
+  authToken: AuthTokenUpdateManyWithoutProfileInput
+  authInvite: AuthInviteUpdateManyWithoutProfileInput
+  invites: AuthInviteUpdateManyWithoutInvitedByInput
+  results: ResultUpdateManyWithoutUserInput
+}
+
+input ProfileUpdateWithoutAuthInviteDataInput {
+  username: String
+  permissions: ProfileUpdatepermissionsInput
+  authEmail: AuthEmailUpdateManyWithoutProfileInput
+  authToken: AuthTokenUpdateManyWithoutProfileInput
+  invites: AuthInviteUpdateManyWithoutInvitedByInput
+  results: ResultUpdateManyWithoutUserInput
+}
+
+input ProfileUpdateWithoutAuthTokenDataInput {
+  username: String
+  permissions: ProfileUpdatepermissionsInput
+  authEmail: AuthEmailUpdateManyWithoutProfileInput
+  authInvite: AuthInviteUpdateManyWithoutProfileInput
+  invites: AuthInviteUpdateManyWithoutInvitedByInput
+  results: ResultUpdateManyWithoutUserInput
+}
+
+input ProfileUpdateWithoutInvitesDataInput {
+  username: String
+  permissions: ProfileUpdatepermissionsInput
+  authEmail: AuthEmailUpdateManyWithoutProfileInput
+  authToken: AuthTokenUpdateManyWithoutProfileInput
+  authInvite: AuthInviteUpdateManyWithoutProfileInput
+  results: ResultUpdateManyWithoutUserInput
+}
+
+input ProfileUpdateWithoutResultsDataInput {
+  username: String
+  permissions: ProfileUpdatepermissionsInput
+  authEmail: AuthEmailUpdateManyWithoutProfileInput
+  authToken: AuthTokenUpdateManyWithoutProfileInput
+  authInvite: AuthInviteUpdateManyWithoutProfileInput
+  invites: AuthInviteUpdateManyWithoutInvitedByInput
 }
 
 input ProfileUpsertNestedInput {
@@ -1222,6 +2103,26 @@ input ProfileUpsertNestedInput {
 input ProfileUpsertWithoutAuthEmailInput {
   update: ProfileUpdateWithoutAuthEmailDataInput!
   create: ProfileCreateWithoutAuthEmailInput!
+}
+
+input ProfileUpsertWithoutAuthInviteInput {
+  update: ProfileUpdateWithoutAuthInviteDataInput!
+  create: ProfileCreateWithoutAuthInviteInput!
+}
+
+input ProfileUpsertWithoutAuthTokenInput {
+  update: ProfileUpdateWithoutAuthTokenDataInput!
+  create: ProfileCreateWithoutAuthTokenInput!
+}
+
+input ProfileUpsertWithoutInvitesInput {
+  update: ProfileUpdateWithoutInvitesDataInput!
+  create: ProfileCreateWithoutInvitesInput!
+}
+
+input ProfileUpsertWithoutResultsInput {
+  update: ProfileUpdateWithoutResultsDataInput!
+  create: ProfileCreateWithoutResultsInput!
 }
 
 input ProfileWhereInput {
@@ -1316,6 +2217,18 @@ input ProfileWhereInput {
   authEmail_every: AuthEmailWhereInput
   authEmail_some: AuthEmailWhereInput
   authEmail_none: AuthEmailWhereInput
+  authToken_every: AuthTokenWhereInput
+  authToken_some: AuthTokenWhereInput
+  authToken_none: AuthTokenWhereInput
+  authInvite_every: AuthInviteWhereInput
+  authInvite_some: AuthInviteWhereInput
+  authInvite_none: AuthInviteWhereInput
+  invites_every: AuthInviteWhereInput
+  invites_some: AuthInviteWhereInput
+  invites_none: AuthInviteWhereInput
+  results_every: ResultWhereInput
+  results_some: ResultWhereInput
+  results_none: ResultWhereInput
 }
 
 input ProfileWhereUniqueInput {
@@ -1324,17 +2237,26 @@ input ProfileWhereUniqueInput {
 }
 
 type Query {
-  schools(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [School]!
-  experiments(where: ExperimentWhereInput, orderBy: ExperimentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Experiment]!
   authEmails(where: AuthEmailWhereInput, orderBy: AuthEmailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthEmail]!
+  authTokens(where: AuthTokenWhereInput, orderBy: AuthTokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthToken]!
+  authInvites(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthInvite]!
+  schools(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [School]!
+  results(where: ResultWhereInput, orderBy: ResultOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Result]!
+  experiments(where: ExperimentWhereInput, orderBy: ExperimentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Experiment]!
   profiles(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Profile]!
-  school(where: SchoolWhereUniqueInput!): School
-  experiment(where: ExperimentWhereUniqueInput!): Experiment
   authEmail(where: AuthEmailWhereUniqueInput!): AuthEmail
+  authToken(where: AuthTokenWhereUniqueInput!): AuthToken
+  authInvite(where: AuthInviteWhereUniqueInput!): AuthInvite
+  school(where: SchoolWhereUniqueInput!): School
+  result(where: ResultWhereUniqueInput!): Result
+  experiment(where: ExperimentWhereUniqueInput!): Experiment
   profile(where: ProfileWhereUniqueInput!): Profile
-  schoolsConnection(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SchoolConnection!
-  experimentsConnection(where: ExperimentWhereInput, orderBy: ExperimentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExperimentConnection!
   authEmailsConnection(where: AuthEmailWhereInput, orderBy: AuthEmailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AuthEmailConnection!
+  authTokensConnection(where: AuthTokenWhereInput, orderBy: AuthTokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AuthTokenConnection!
+  authInvitesConnection(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AuthInviteConnection!
+  schoolsConnection(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SchoolConnection!
+  resultsConnection(where: ResultWhereInput, orderBy: ResultOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ResultConnection!
+  experimentsConnection(where: ExperimentWhereInput, orderBy: ExperimentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExperimentConnection!
   profilesConnection(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProfileConnection!
 
   """Fetches an object given its ID"""
@@ -1342,6 +2264,300 @@ type Query {
     """The ID of an object"""
     id: ID!
   ): Node
+}
+
+type Result implements Node {
+  id: ID!
+  experiment: Experiment!
+  user: Profile!
+  quantity: Int!
+}
+
+"""A connection to a list of items."""
+type ResultConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ResultEdge]!
+  aggregate: AggregateResult!
+}
+
+input ResultCreateInput {
+  id: ID
+  quantity: Int!
+  experiment: ExperimentCreateOneInput!
+  user: ProfileCreateOneWithoutResultsInput!
+}
+
+input ResultCreateManyWithoutUserInput {
+  create: [ResultCreateWithoutUserInput!]
+  connect: [ResultWhereUniqueInput!]
+}
+
+input ResultCreateWithoutUserInput {
+  id: ID
+  quantity: Int!
+  experiment: ExperimentCreateOneInput!
+}
+
+"""An edge in a connection."""
+type ResultEdge {
+  """The item at the end of the edge."""
+  node: Result!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ResultOrderByInput {
+  id_ASC
+  id_DESC
+  quantity_ASC
+  quantity_DESC
+}
+
+type ResultPreviousValues {
+  id: ID!
+  quantity: Int!
+}
+
+input ResultScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ResultScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ResultScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ResultScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  quantity: Int
+
+  """All values that are not equal to given value."""
+  quantity_not: Int
+
+  """All values that are contained in given list."""
+  quantity_in: [Int!]
+
+  """All values that are not contained in given list."""
+  quantity_not_in: [Int!]
+
+  """All values less than the given value."""
+  quantity_lt: Int
+
+  """All values less than or equal the given value."""
+  quantity_lte: Int
+
+  """All values greater than the given value."""
+  quantity_gt: Int
+
+  """All values greater than or equal the given value."""
+  quantity_gte: Int
+}
+
+type ResultSubscriptionPayload {
+  mutation: MutationType!
+  node: Result
+  updatedFields: [String!]
+  previousValues: ResultPreviousValues
+}
+
+input ResultSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ResultSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ResultSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ResultSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ResultWhereInput
+}
+
+input ResultUpdateInput {
+  quantity: Int
+  experiment: ExperimentUpdateOneRequiredInput
+  user: ProfileUpdateOneRequiredWithoutResultsInput
+}
+
+input ResultUpdateManyDataInput {
+  quantity: Int
+}
+
+input ResultUpdateManyMutationInput {
+  quantity: Int
+}
+
+input ResultUpdateManyWithoutUserInput {
+  create: [ResultCreateWithoutUserInput!]
+  connect: [ResultWhereUniqueInput!]
+  set: [ResultWhereUniqueInput!]
+  disconnect: [ResultWhereUniqueInput!]
+  delete: [ResultWhereUniqueInput!]
+  update: [ResultUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [ResultUpdateManyWithWhereNestedInput!]
+  deleteMany: [ResultScalarWhereInput!]
+  upsert: [ResultUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input ResultUpdateManyWithWhereNestedInput {
+  where: ResultScalarWhereInput!
+  data: ResultUpdateManyDataInput!
+}
+
+input ResultUpdateWithoutUserDataInput {
+  quantity: Int
+  experiment: ExperimentUpdateOneRequiredInput
+}
+
+input ResultUpdateWithWhereUniqueWithoutUserInput {
+  where: ResultWhereUniqueInput!
+  data: ResultUpdateWithoutUserDataInput!
+}
+
+input ResultUpsertWithWhereUniqueWithoutUserInput {
+  where: ResultWhereUniqueInput!
+  update: ResultUpdateWithoutUserDataInput!
+  create: ResultCreateWithoutUserInput!
+}
+
+input ResultWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ResultWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ResultWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ResultWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  quantity: Int
+
+  """All values that are not equal to given value."""
+  quantity_not: Int
+
+  """All values that are contained in given list."""
+  quantity_in: [Int!]
+
+  """All values that are not contained in given list."""
+  quantity_not_in: [Int!]
+
+  """All values less than the given value."""
+  quantity_lt: Int
+
+  """All values less than or equal the given value."""
+  quantity_lte: Int
+
+  """All values greater than the given value."""
+  quantity_gt: Int
+
+  """All values greater than or equal the given value."""
+  quantity_gte: Int
+  experiment: ExperimentWhereInput
+  user: ProfileWhereInput
+}
+
+input ResultWhereUniqueInput {
+  id: ID
 }
 
 type School implements Node {
@@ -1721,8 +2937,11 @@ input SchoolWhereUniqueInput {
 }
 
 type Subscription {
-  school(where: SchoolSubscriptionWhereInput): SchoolSubscriptionPayload
-  experiment(where: ExperimentSubscriptionWhereInput): ExperimentSubscriptionPayload
   authEmail(where: AuthEmailSubscriptionWhereInput): AuthEmailSubscriptionPayload
+  authToken(where: AuthTokenSubscriptionWhereInput): AuthTokenSubscriptionPayload
+  authInvite(where: AuthInviteSubscriptionWhereInput): AuthInviteSubscriptionPayload
+  school(where: SchoolSubscriptionWhereInput): SchoolSubscriptionPayload
+  result(where: ResultSubscriptionWhereInput): ResultSubscriptionPayload
+  experiment(where: ExperimentSubscriptionWhereInput): ExperimentSubscriptionPayload
   profile(where: ProfileSubscriptionWhereInput): ProfileSubscriptionPayload
 }

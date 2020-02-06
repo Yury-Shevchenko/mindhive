@@ -1,9 +1,10 @@
 import Link from 'next/link';
+import Page from '../components/Page/index';
 
 const Home = props => (
-    <div>
+    <Page>
         <h1>Home page</h1>
-    </div>
+    </Page>
 );
 
 export default Home;

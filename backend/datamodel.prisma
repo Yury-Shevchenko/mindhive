@@ -8,6 +8,39 @@ enum Permission {
   PARTICIPANT
 }
 
+type Profile {
+  id: ID! @id
+  username: String! @unique
+  permissions: [Permission] @scalarList(strategy: RELATION)
+  authEmail: [AuthEmail]!
+  authToken: [AuthToken]!
+  authInvite: [AuthInvite]! @relation(name:"Owner")
+  invites: [AuthInvite]! @relation(name:"Invite")
+  results: [Result]!
+}
+
+type AuthEmail {
+  id: ID! @id
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: String
+  profile: Profile!
+}
+
+type AuthToken {
+  id: ID! @id
+  token: String! @unique
+  tokenExpiry: String
+  profile: Profile!
+}
+
+type AuthInvite {
+  id: ID! @id
+  profile: Profile! @relation(name:"Owner")
+  invitedBy: Profile! @relation(name:"Invite")
+}
+
 type School {
   id: ID! @id
   title: String!
@@ -29,18 +62,9 @@ type Experiment {
   author: Profile!
 }
 
-type Profile {
+type Result {
   id: ID! @id
-  username: String! @unique
-  permissions: [Permission] @scalarList(strategy: RELATION)
-  authEmail: [AuthEmail]!
-}
-
-type AuthEmail {
-  id: ID! @id
-  email: String! @unique
-  password: String!
-  resetToken: String
-  resetTokenExpiry: String
-  profile: Profile!
+  experiment: Experiment! #relationship to Experiment
+  user: Profile! #relationship to Profile
+  quantity: Int!
 }

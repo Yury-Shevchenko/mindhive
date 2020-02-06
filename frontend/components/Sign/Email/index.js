@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { SignForm } from '../Styles/Forms';
-import Error from '../ErrorMessage/index';
-import { CURRENT_USER_QUERY } from '../User/index';
+import { SignForm } from '../../Styles/Forms';
+import Error from '../../ErrorMessage/index';
+import { CURRENT_USER_QUERY } from '../../User/index';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION($email: String!, $username: String!, $password: String!) {

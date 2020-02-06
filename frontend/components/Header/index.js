@@ -2,6 +2,7 @@ import Nav from '../Nav/index'
 import Link from 'next/link';
 import Router from 'next/router';
 import NProgress from 'nprogress';
+import Dashboard from '../Dashboard/index';
 
 import { Logo, StyledHeader } from './styles';
 
@@ -28,9 +29,7 @@ const Header = () => (
     <div className="sub-bar">
       <p>Placeholder</p>
     </div>
-    <div>
-       Placeholder
-    </div>
+    <Dashboard />
   </StyledHeader>
 )
 
