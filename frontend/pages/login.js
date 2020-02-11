@@ -1,4 +1,4 @@
-import Login from '../components/Login/Email/index'
+import Login from '../components/Login/Email/index';
 import Page from '../components/Page/index';
 
 const LoginPage = props => (

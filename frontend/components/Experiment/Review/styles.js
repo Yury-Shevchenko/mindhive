@@ -17,4 +17,4 @@ export const StyledExperiment = styled.div`
     margin: 3rem;
     font-size: 2rem;
   }
-`
+`;

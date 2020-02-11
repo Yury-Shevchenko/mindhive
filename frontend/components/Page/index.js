@@ -30,22 +30,20 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
   }
-`
+`;
 
 class Page extends Component {
   render() {
-    return(
+    return (
       <ThemeProvider theme={theme}>
         <StyledPage>
           <Meta />
           <Header />
-          <Inner>
-            {this.props.children}
-          </Inner>
+          <Inner>{this.props.children}</Inner>
         </StyledPage>
-        <GlobalStyle/>
+        <GlobalStyle />
       </ThemeProvider>
-    )
+    );
   }
 }
 

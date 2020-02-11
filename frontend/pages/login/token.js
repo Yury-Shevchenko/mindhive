@@ -1,4 +1,4 @@
-import TokenLogin from '../../components/Login/Token/index'
+import TokenLogin from '../../components/Login/Token/index';
 import Page from '../../components/Page/index';
 
 const TokenLoginPage = props => (

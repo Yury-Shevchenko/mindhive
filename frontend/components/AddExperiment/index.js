@@ -24,38 +24,36 @@ const CREATE_NEW_EXPERIMENT = gql`
 `;
 
 class AddExperiment extends Component {
-
   state = {
     title: 'Test title',
     description: 'Test description',
     image: 'Test image',
     largeImage: 'Test large image',
-  }
+  };
 
   handleChange = e => {
     const { name, type, value } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
-      [name]: value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   render() {
     return (
-      <Mutation
-        mutation={ CREATE_NEW_EXPERIMENT }
-        variables={this.state}
-      >
-        { (createExperiment, {loading, error}) => (
-          <SignForm onSubmit={async e => {
-            e.preventDefault();
-            const res = await createExperiment();
-            // change the page
-            Router.push({
-              pathname: '/exp',
-              query: { id: res.data.createExperiment.id }
-            })
-          }}>
+      <Mutation mutation={CREATE_NEW_EXPERIMENT} variables={this.state}>
+        {(createExperiment, { loading, error }) => (
+          <SignForm
+            onSubmit={async e => {
+              e.preventDefault();
+              const res = await createExperiment();
+              // change the page
+              Router.push({
+                pathname: '/exp',
+                query: { id: res.data.createExperiment.id },
+              });
+            }}
+          >
             <h2>Add an experiment</h2>
             <Error error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
@@ -89,7 +87,6 @@ class AddExperiment extends Component {
       </Mutation>
     );
   }
-
 }
 
 export default AddExperiment;

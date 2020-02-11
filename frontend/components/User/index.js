@@ -33,13 +33,13 @@ const CURRENT_USER_QUERY = gql`
 
 const User = props => (
   <Query {...props} query={CURRENT_USER_QUERY}>
-    { payload => props.children(payload) }
+    {payload => props.children(payload)}
   </Query>
-)
+);
 
 User.propTypes = {
   children: PropTypes.func.isRequired,
-}
+};
 
 export default User;
 export { CURRENT_USER_QUERY, CURRENT_USER_RESULTS_QUERY };

@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import Error from '../../ErrorMessage/index';
 
 const ALL_USERS_QUERY = gql`
-  query ALL_USERS_QUERY{
+  query ALL_USERS_QUERY {
     users {
       id
       username
@@ -14,20 +14,20 @@ const ALL_USERS_QUERY = gql`
 `;
 
 class Permissions extends Component {
-
   render() {
     return (
       <Query query={ALL_USERS_QUERY}>
-        { ({data, loading, error}) => console.log('data', data) || (
-          <div>
-            <Error error={error} />
-            <p>Hey</p>
-          </div>
-        )}
+        {({ data, loading, error }) =>
+          console.log('data', data) || (
+            <div>
+              <Error error={error} />
+              <p>Hey</p>
+            </div>
+          )
+        }
       </Query>
     );
   }
-
 }
 
 export default Permissions;

@@ -1,7 +1,5 @@
-import RunExperiment from '../../components/Experiment/Run/index'
+import RunExperiment from '../../components/Experiment/Run/index';
 
-const RunExperimentPage = ({query}) => (
-  <RunExperiment id={query.id} />
-);
+const RunExperimentPage = ({ query }) => <RunExperiment id={query.id} />;
 
 export default RunExperimentPage;

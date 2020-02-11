@@ -20,27 +20,27 @@ const ALL_EXPERIMENTS_QUERY = gql`
 // using render props inside with query
 // https://www.prisma.io/blog/tutorial-render-props-in-react-apollo-2-1-199e9e2bd01e
 class Experiments extends Component {
-
   render() {
     return (
       <Center>
         <h1>Experiments</h1>
         <Query query={ALL_EXPERIMENTS_QUERY}>
-          { ({data, error, loading}) => {
+          {({ data, error, loading }) => {
             console.log('data', data);
-            if(loading) return <p>Loading ...</p>
-            if(error) return <p>Error: {error.message}</p>
-            return <ExperimentsList>
-              {data.experiments.map(experiment =>
-                <ExperimentCard experiment={experiment} key={experiment.id} />
-              )}
-            </ExperimentsList>
-          } }
+            if (loading) return <p>Loading ...</p>;
+            if (error) return <p>Error: {error.message}</p>;
+            return (
+              <ExperimentsList>
+                {data.experiments.map(experiment => (
+                  <ExperimentCard experiment={experiment} key={experiment.id} />
+                ))}
+              </ExperimentsList>
+            );
+          }}
         </Query>
       </Center>
     );
   }
-
 }
 
 export default Experiments;

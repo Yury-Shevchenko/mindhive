@@ -55,7 +55,12 @@ export const SignForm = styled.form`
       height: 10px;
       content: '';
       display: block;
-      background-image: linear-gradient(to right, #208962 0%, #49e889 50%, #208962 100%);
+      background-image: linear-gradient(
+        to right,
+        #208962 0%,
+        #49e889 50%,
+        #208962 100%
+      );
     }
     &[aria-busy='true']::before {
       background-size: 50% auto;

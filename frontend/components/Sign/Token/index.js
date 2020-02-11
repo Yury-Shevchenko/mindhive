@@ -7,7 +7,7 @@ import { CURRENT_USER_QUERY } from '../../User/index';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION($username: String!, $token: String!) {
-    tokenSignUp(username: $username, token: $token){
+    tokenSignUp(username: $username, token: $token) {
       id
       username
       permissions
@@ -16,70 +16,64 @@ const SIGNUP_MUTATION = gql`
 `;
 
 class TokenSignup extends Component {
-
   state = {
     username: 'dag',
     token: 'gagafgfd',
-  }
+  };
 
   saveToState = e => {
     this.setState({
-      [e.target.name] : e.target.value
+      [e.target.name]: e.target.value,
     });
-  }
+  };
 
   render() {
     return (
       <Mutation
         mutation={SIGNUP_MUTATION}
         variables={this.state}
-        refetchQueries={[
-          { query: CURRENT_USER_QUERY }
-        ]}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
-        {(tokenSignUp, { error, loading }) => {
-          return (
-            <SignForm
-              method="post"
-              onSubmit={async e => {
-                e.preventDefault();
-                const res = await tokenSignUp();
-                console.log('res', res);
-                this.setState({ username: '', token: '' })
-              }}
-              >
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h3>Sign up with token</h3>
-                <Error error={error} />
-                <label htmlFor="token">
-                  Token
-                  <input
-                    type="text"
-                    name="token"
-                    placeholder="token"
-                    value={this.state.token}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label htmlFor="username">
-                  Username
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder="username"
-                    value={this.state.username}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <button type="submit">Sign up with token</button>
-              </fieldset>
-            </SignForm>
-          )
-        }}
+        {(tokenSignUp, { error, loading }) => (
+          <SignForm
+            method="post"
+            onSubmit={async e => {
+              e.preventDefault();
+              const res = await tokenSignUp();
+              console.log('res', res);
+              this.setState({ username: '', token: '' });
+            }}
+          >
+            <fieldset disabled={loading} aria-busy={loading}>
+              <h3>Sign up with token</h3>
+              <Error error={error} />
+              <label htmlFor="token">
+                Token
+                <input
+                  type="text"
+                  name="token"
+                  placeholder="token"
+                  value={this.state.token}
+                  onChange={this.saveToState}
+                />
+              </label>
+              <label htmlFor="username">
+                Username
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="username"
+                  value={this.state.username}
+                  onChange={this.saveToState}
+                />
+              </label>
+              <button type="submit">Sign up with token</button>
+            </fieldset>
+          </SignForm>
+        )}
       </Mutation>
     );
   }
-
 }
 
 export default TokenSignup;

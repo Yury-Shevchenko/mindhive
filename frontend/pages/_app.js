@@ -3,11 +3,10 @@ import { ApolloProvider } from 'react-apollo';
 import withData from '../lib/withData';
 
 class MyApp extends App {
-
   // get initial props of pages and resolve queries and mutation before rendering the page
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
-    if(Component.getInitialProps){
+    if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
     // exposes the query to the user
@@ -24,7 +23,7 @@ class MyApp extends App {
           <Component {...pageProps} />
         </ApolloProvider>
       </Container>
-    )
+    );
   }
 }
 

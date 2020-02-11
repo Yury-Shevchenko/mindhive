@@ -1,28 +1,28 @@
 // Yoga is an Express server that uses Apollo Server
 // https://github.com/prisma-labs/graphql-yoga
 
-const { GraphQLServer } = require('graphql-yoga')
+const { GraphQLServer } = require('graphql-yoga');
 
 // where the data come from
-const Query = require('./resolvers/Query')
+const Query = require('./resolvers/Query');
 // what happens with the data
-const Mutation = require('./resolvers/Mutation')
+const Mutation = require('./resolvers/Mutation');
 // Prisma database
-const db = require('./db')
+const db = require('./db');
 
 // create graphql yoga server
-function createServer (){
+function createServer() {
   return new GraphQLServer({
     typeDefs: 'src/schema.graphql',
     resolvers: {
       Mutation,
-      Query
+      Query,
     },
     resolverValidationOptions: {
-      requireResolversForResolveType: false
+      requireResolversForResolveType: false,
     },
-    context: req => ({ ...req, db })
-  })
+    context: req => ({ ...req, db }),
+  });
 }
 
-module.exports = createServer
+module.exports = createServer;

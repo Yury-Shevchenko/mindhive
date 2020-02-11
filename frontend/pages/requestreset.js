@@ -1,4 +1,4 @@
-import RequestReset from '../components/RequestReset/index'
+import RequestReset from '../components/RequestReset/index';
 import Page from '../components/Page/index';
 
 const RequestResetPage = props => (

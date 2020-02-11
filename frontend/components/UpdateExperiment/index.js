@@ -6,26 +6,18 @@ import { SignForm } from '../Styles/Forms';
 import Error from '../ErrorMessage/index';
 
 const SINGLE_EXPERIMENT_QUERY = gql`
-  query SINGLE_EXPERIMENT_QUERY($id: ID!){
-    experiment(where: {id: $id}) {
+  query SINGLE_EXPERIMENT_QUERY($id: ID!) {
+    experiment(where: { id: $id }) {
       id
       title
       description
     }
   }
-`
+`;
 
 const UPDATE_EXPERIMENT = gql`
-  mutation UPDATE_EXPERIMENT(
-    $id: ID!
-    $title: String
-    $description: String
-  ) {
-    updateExperiment(
-      id: $id
-      title: $title
-      description: $description
-    ) {
+  mutation UPDATE_EXPERIMENT($id: ID!, $title: String, $description: String) {
+    updateExperiment(id: $id, title: $title, description: $description) {
       id
       title
       description
@@ -34,16 +26,15 @@ const UPDATE_EXPERIMENT = gql`
 `;
 
 class UpdateExperiment extends Component {
-
-  state = {}
+  state = {};
 
   handleChange = e => {
     const { name, type, value } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
-      [name]: value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   updateExperiment = async (e, updateExperimentMutation) => {
     e.preventDefault();
@@ -51,25 +42,24 @@ class UpdateExperiment extends Component {
     const res = await updateExperimentMutation({
       variables: {
         id: this.props.id,
-        ...this.state
-      }
-    })
-  }
+        ...this.state,
+      },
+    });
+  };
 
   render() {
     return (
-      <Query query={SINGLE_EXPERIMENT_QUERY} variables={{id: this.props.id}}>
-        { ({data, loading}) => {
-          if(loading) return <p>Loading ... </p>
-          if(!data || !data.experiment) return <p>No experiment found for id {this.props.id}</p>
-          return(
-            <Mutation
-              mutation={ UPDATE_EXPERIMENT }
-              variables={this.state}
-            >
-              { (updateExperiment, {loading, error}) => (
-                <SignForm onSubmit={e => this.updateExperiment(e, updateExperiment)}
-                  >
+      <Query query={SINGLE_EXPERIMENT_QUERY} variables={{ id: this.props.id }}>
+        {({ data, loading }) => {
+          if (loading) return <p>Loading ... </p>;
+          if (!data || !data.experiment)
+            return <p>No experiment found for id {this.props.id}</p>;
+          return (
+            <Mutation mutation={UPDATE_EXPERIMENT} variables={this.state}>
+              {(updateExperiment, { loading, error }) => (
+                <SignForm
+                  onSubmit={e => this.updateExperiment(e, updateExperiment)}
+                >
                   <h2>Edit the experiment</h2>
                   <Error error={error} />
                   <fieldset disabled={loading} aria-busy={loading}>
@@ -96,17 +86,18 @@ class UpdateExperiment extends Component {
                         required
                       />
                     </label>
-                    <button type="submit">Sav{loading? 'ing' : 'e'} changes</button>
+                    <button type="submit">
+                      Sav{loading ? 'ing' : 'e'} changes
+                    </button>
                   </fieldset>
                 </SignForm>
               )}
             </Mutation>
-          )
+          );
         }}
       </Query>
     );
   }
-
 }
 
 export default UpdateExperiment;

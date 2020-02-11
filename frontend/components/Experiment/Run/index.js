@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { ExperimentWindow } from '../../Labjs/index';
 import Head from 'next/head';
+import { ExperimentWindow } from '../../Labjs/index';
 
 import AddResult from '../../Results/Add/index';
 
 import { StyledBox } from './styles';
 
 class RunExperiment extends Component {
-
   render() {
     return (
       <>
@@ -17,20 +16,21 @@ class RunExperiment extends Component {
         <StyledBox>
           <AddResult experimentId={this.props.id} />
           <ExperimentWindow
-              settings={{
-                script: 'Visual search',
-                params: {iti: 1000},
-                eventCallback: (e) => {console.log('Event callback', e)},
-                on_finish: csv => {
-                  console.log('data', csv);
-                }
-              }}
-            />
+            settings={{
+              script: 'Visual search',
+              params: { iti: 1000 },
+              eventCallback: e => {
+                console.log('Event callback', e);
+              },
+              on_finish: csv => {
+                console.log('data', csv);
+              },
+            }}
+          />
         </StyledBox>
       </>
-    )
+    );
   }
-
 }
 
 export default RunExperiment;

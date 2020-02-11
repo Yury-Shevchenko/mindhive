@@ -11,14 +11,13 @@ import { buildSearchTimeline } from './protocols/search';
 import {
   MainTimeline,
   Trial,
-  ExperimentParameters
+  ExperimentParameters,
 } from '../../constants/interfaces';
 
 // loads a protocol of the experiment
 export const loadProtocol = (paradigm: EXPERIMENTS) => {
   let protocol;
   switch (paradigm) {
-
     case EXPERIMENTS.STROOP:
       protocol = buildStroopTimeline();
       break;
@@ -35,7 +34,6 @@ export const loadProtocol = (paradigm: EXPERIMENTS) => {
     default:
       protocol = buildN170Timeline();
       break;
-
   }
   return protocol;
 };

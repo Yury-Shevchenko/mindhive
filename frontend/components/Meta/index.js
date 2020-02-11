@@ -8,6 +8,6 @@ const Meta = () => (
     <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
     <title>mindHIVE</title>
   </Head>
-)
+);
 
 export default Meta;

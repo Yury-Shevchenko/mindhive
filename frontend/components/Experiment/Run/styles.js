@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
-
 export const StyledBox = styled.div`
   height: -webkit-fill-available;
   height: 100%;
-  height: -moz-available;          /* WebKit-based browsers will ignore this. */
-  height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+  height: -moz-available; /* WebKit-based browsers will ignore this. */
+  height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
   height: fill-available;
-`
+`;
 
 export const StyledExperiment = styled.div`
   #expBox {
@@ -19,7 +18,7 @@ export const StyledExperiment = styled.div`
     --border-radius-container: 5px;
     --border-radius-content: 4px;
     /* Typography */
-    --font-family: "Arial", sans-serif;
+    --font-family: 'Arial', sans-serif;
     --font-family-mono: Droid Mono, Menlo, Consolas, monospace;
     --font-size: 18px;
     --line-height: 1.4em;
@@ -37,7 +36,9 @@ export const StyledExperiment = styled.div`
   #expBox {
     box-sizing: border-box;
   }
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: inherit;
   }
 
@@ -62,12 +63,15 @@ export const StyledExperiment = styled.div`
     /* width: 900px;
     width: var(--width-container); */
   }
-  header, footer, main {
+  header,
+  footer,
+  main {
     padding: 24px;
     padding: var(--padding-internal);
   }
   /* Individual parts: Height, borders and background */
-  header, footer {
+  header,
+  footer {
     min-height: 8vh;
     min-height: var(--height-min-header-footer);
   }
@@ -126,8 +130,8 @@ export const StyledExperiment = styled.div`
     }
     .container.fullscreen {
       /* IE11 miscalculates the height, so add some slack */
-      min-height: calc(100vh - 3*24px);
-      min-height: calc(100vh - 3*var(--padding-internal));
+      min-height: calc(100vh - 3 * 24px);
+      min-height: calc(100vh - 3 * var(--padding-internal));
     }
   }
 
@@ -151,27 +155,31 @@ export const StyledExperiment = styled.div`
 
   /* Typography */
   :root {
-    font-family: "Arial", sans-serif;
+    font-family: 'Arial', sans-serif;
     font-family: var(--font-family);
     font-size: 18px;
     font-size: var(--font-size);
     line-height: 1.4em;
     line-height: var(--line-height);
   }
-  header, footer, main {
+  header,
+  footer,
+  main {
     /* Set display style explicitly for legacy browsers
        that are unfamiliar with these elements */
     display: block;
     text-align: center;
   }
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     line-height: 1.4em;
     line-height: var(--line-height);
   }
   hr {
     border: none;
     border-top: 2px solid #e5e5e5;
-    border-top: 2px solid var(--color-border)
+    border-top: 2px solid var(--color-border);
   }
 
   /* Special elements: Keyboard buttons */
@@ -290,7 +298,8 @@ export const StyledExperiment = styled.div`
   .text-muted a {
     color: rgb(60, 89, 156);
   }
-  small, .small {
+  small,
+  .small {
     font-size: 0.9rem;
   }
   .font-weight-bold {
@@ -316,7 +325,7 @@ export const StyledExperiment = styled.div`
     display: none;
   }
   .hide-if-empty:empty {
-    display: none
+    display: none;
   }
 
   /* Alerts */
@@ -338,14 +347,17 @@ export const StyledExperiment = styled.div`
   }
 
   /* Background styles (experimental) */
-  .alert, .background-dark {
+  .alert,
+  .background-dark {
     background-color: #f8f8f8;
     background-color: var(--color-gray-background);
   }
-  .alert.alert-danger, .background-danger {
+  .alert.alert-danger,
+  .background-danger {
     background-color: #e9afaf;
   }
-  .alert.alert-warning, .background-warning {
+  .alert.alert-warning,
+  .background-warning {
     background-color: #ffe6a5;
   }
   .background-ok {
@@ -353,8 +365,11 @@ export const StyledExperiment = styled.div`
   }
 
   /* Form elements */
-  input, select, button, textarea {
-    font-family: "Arial", sans-serif;
+  input,
+  select,
+  button,
+  textarea {
+    font-family: 'Arial', sans-serif;
     font-family: var(--font-family);
     font-size: 0.9rem;
     line-height: 1.4em;
@@ -366,10 +381,10 @@ export const StyledExperiment = styled.div`
     margin: 8px 0;
     padding: 8px;
   }
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     margin: 0 10px;
   }
-  input[type="range"] {
+  input[type='range'] {
     border: none;
   }
   input + label {
@@ -424,7 +439,8 @@ export const StyledExperiment = styled.div`
     width: 100%;
     border-collapse: collapse;
   }
-  table td, table th {
+  table td,
+  table th {
     padding: 10px 8px 8px;
   }
   /* Table borders (except for plain) */
@@ -444,7 +460,7 @@ export const StyledExperiment = styled.div`
   /* Striped rows */
   table.table-striped tr:nth-child(odd) td {
     background-color: #efefef;
-    background-color: var(--color-border-internal)
+    background-color: var(--color-border-internal);
   }
 
   /* Progress bar */
@@ -472,15 +488,15 @@ export const StyledExperiment = styled.div`
     position: absolute;
     top: 0;
     -webkit-animation-duration: 0.5s;
-            animation-duration: 0.5s;
+    animation-duration: 0.5s;
     -webkit-animation-name: popover;
-            animation-name: popover;
+    animation-name: popover;
   }
 
   /* Width, for some reason, needs to be set explicitly */
   .container.fullscreen .popover {
-    width: calc(100vw - 2*24px);
-    width: calc(100vw - 2*var(--padding-internal));
+    width: calc(100vw - 2 * 24px);
+    width: calc(100vw - 2 * var(--padding-internal));
   }
 
   .popover > * {
@@ -497,23 +513,23 @@ export const StyledExperiment = styled.div`
   @-webkit-keyframes popover {
     from {
       -webkit-transform: translate3d(0, -100%, 0);
-              transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
     }
 
     to {
       -webkit-transform: none;
-              transform: none;
+      transform: none;
     }
   }
   @keyframes popover {
     from {
       -webkit-transform: translate3d(0, -100%, 0);
-              transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
     }
 
     to {
       -webkit-transform: none;
-              transform: none;
+      transform: none;
     }
   }
 
@@ -523,4 +539,4 @@ export const StyledExperiment = styled.div`
     padding-top: 24px;
     top: -8px;
   }
-`
+`;

@@ -1,55 +1,52 @@
 import Link from 'next/link';
+import { Mutation } from 'react-apollo';
 import NavStyles from './styles';
 import User from '../User/index';
 import Signout from '../Signout/index';
 
-import { Mutation } from 'react-apollo';
 import { TOGGLE_DASHBOARD_MUTATION } from '../Dashboard/index';
 
 const Nav = () => (
+  <User>
+    {({ data: { me } }) => (
+      <NavStyles>
+        <Link href="/bank">
+          <a>Experiments</a>
+        </Link>
 
-    <User>
-      { ({ data: { me } }) => (
-        <NavStyles>
+        <Link href="/journal">
+          <a>Journal</a>
+        </Link>
 
-          <Link href="/bank">
-            <a>Experiments</a>
-          </Link>
+        <Link href="/resources">
+          <a>Recources</a>
+        </Link>
 
-          <Link href="/journal">
-              <a>Journal</a>
-          </Link>
+        {me && (
+          <>
+            <Signout />
+            <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
+              {toggleDashboard => (
+                <button onClick={toggleDashboard}>Dashboard</button>
+              )}
+            </Mutation>
+          </>
+        )}
 
-          <Link href="/resources">
-              <a>Recources</a>
-          </Link>
+        {!me && (
+          <>
+            <Link href="/signup">
+              <a>Signup</a>
+            </Link>
 
-          {me && (
-            <>
-              <Signout />
-              <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
-                { (toggleDashboard) => (
-                  <button onClick={toggleDashboard}>Dashboard</button>
-                )}
-              </Mutation>
-            </>
-          )}
-
-          {!me && (
-            <>
-              <Link href="/signup">
-                  <a>Signup</a>
-              </Link>
-
-              <Link href="/login">
-                  <a>Login</a>
-              </Link>
-            </>
-          )}
-
-        </NavStyles>
-      )}
-    </User>
-)
+            <Link href="/login">
+              <a>Login</a>
+            </Link>
+          </>
+        )}
+      </NavStyles>
+    )}
+  </User>
+);
 
 export default Nav;
