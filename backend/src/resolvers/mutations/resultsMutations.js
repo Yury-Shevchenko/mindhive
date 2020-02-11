@@ -13,13 +13,14 @@ const resultsMutations = {
         experiment: { id: args.experimentId },
       },
     });
+    console.log('data', args.data);
     // if there are existing results
     if (existingResults) {
       console.log('there are already results');
       return ctx.db.mutation.updateResult(
         {
           where: { id: existingResults.id },
-          data: { quantity: existingResults.quantity + 1 },
+          data: { quantity: existingResults.quantity + 1, data: args.data },
         },
         info
       );
@@ -35,6 +36,7 @@ const resultsMutations = {
             connect: { id: args.experimentId },
           },
           quantity: 1,
+          data: args.data,
         },
       },
       info

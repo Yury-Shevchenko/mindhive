@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/shevchenko_yury-d70d0e/mindHive-backend/dev
-# timestamp: Thu Feb 06 2020 17:20:29 GMT+0100 (Central European Standard Time)
+# timestamp: Tue Feb 11 2020 15:31:32 GMT+0100 (Central European Standard Time)
 
 type AggregateAuthEmail {
   count: Int!
@@ -2271,6 +2271,7 @@ type Result implements Node {
   experiment: Experiment!
   user: Profile!
   quantity: Int!
+  data: String
 }
 
 """A connection to a list of items."""
@@ -2286,6 +2287,7 @@ type ResultConnection {
 input ResultCreateInput {
   id: ID
   quantity: Int!
+  data: String
   experiment: ExperimentCreateOneInput!
   user: ProfileCreateOneWithoutResultsInput!
 }
@@ -2298,6 +2300,7 @@ input ResultCreateManyWithoutUserInput {
 input ResultCreateWithoutUserInput {
   id: ID
   quantity: Int!
+  data: String
   experiment: ExperimentCreateOneInput!
 }
 
@@ -2315,11 +2318,14 @@ enum ResultOrderByInput {
   id_DESC
   quantity_ASC
   quantity_DESC
+  data_ASC
+  data_DESC
 }
 
 type ResultPreviousValues {
   id: ID!
   quantity: Int!
+  data: String
 }
 
 input ResultScalarWhereInput {
@@ -2393,6 +2399,46 @@ input ResultScalarWhereInput {
 
   """All values greater than or equal the given value."""
   quantity_gte: Int
+  data: String
+
+  """All values that are not equal to given value."""
+  data_not: String
+
+  """All values that are contained in given list."""
+  data_in: [String!]
+
+  """All values that are not contained in given list."""
+  data_not_in: [String!]
+
+  """All values less than the given value."""
+  data_lt: String
+
+  """All values less than or equal the given value."""
+  data_lte: String
+
+  """All values greater than the given value."""
+  data_gt: String
+
+  """All values greater than or equal the given value."""
+  data_gte: String
+
+  """All values containing the given string."""
+  data_contains: String
+
+  """All values not containing the given string."""
+  data_not_contains: String
+
+  """All values starting with the given string."""
+  data_starts_with: String
+
+  """All values not starting with the given string."""
+  data_not_starts_with: String
+
+  """All values ending with the given string."""
+  data_ends_with: String
+
+  """All values not ending with the given string."""
+  data_not_ends_with: String
 }
 
 type ResultSubscriptionPayload {
@@ -2436,16 +2482,19 @@ input ResultSubscriptionWhereInput {
 
 input ResultUpdateInput {
   quantity: Int
+  data: String
   experiment: ExperimentUpdateOneRequiredInput
   user: ProfileUpdateOneRequiredWithoutResultsInput
 }
 
 input ResultUpdateManyDataInput {
   quantity: Int
+  data: String
 }
 
 input ResultUpdateManyMutationInput {
   quantity: Int
+  data: String
 }
 
 input ResultUpdateManyWithoutUserInput {
@@ -2467,6 +2516,7 @@ input ResultUpdateManyWithWhereNestedInput {
 
 input ResultUpdateWithoutUserDataInput {
   quantity: Int
+  data: String
   experiment: ExperimentUpdateOneRequiredInput
 }
 
@@ -2552,6 +2602,46 @@ input ResultWhereInput {
 
   """All values greater than or equal the given value."""
   quantity_gte: Int
+  data: String
+
+  """All values that are not equal to given value."""
+  data_not: String
+
+  """All values that are contained in given list."""
+  data_in: [String!]
+
+  """All values that are not contained in given list."""
+  data_not_in: [String!]
+
+  """All values less than the given value."""
+  data_lt: String
+
+  """All values less than or equal the given value."""
+  data_lte: String
+
+  """All values greater than the given value."""
+  data_gt: String
+
+  """All values greater than or equal the given value."""
+  data_gte: String
+
+  """All values containing the given string."""
+  data_contains: String
+
+  """All values not containing the given string."""
+  data_not_contains: String
+
+  """All values starting with the given string."""
+  data_starts_with: String
+
+  """All values not starting with the given string."""
+  data_not_starts_with: String
+
+  """All values ending with the given string."""
+  data_ends_with: String
+
+  """All values not ending with the given string."""
+  data_not_ends_with: String
   experiment: ExperimentWhereInput
   user: ProfileWhereInput
 }

@@ -67,4 +67,5 @@ type Result {
   experiment: Experiment! #relationship to Experiment
   user: Profile! #relationship to Profile
   quantity: Int!
+  data: String
 }

@@ -5,15 +5,15 @@ import gql from 'graphql-tag';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
 const ADD_RESULT_MUTATION = gql`
-  mutation addResult($experimentId: ID!) {
-    addResult(experimentId: $experimentId) {
+  mutation addResult($experimentId: ID!, $data: String) {
+    addResult(experimentId: $experimentId, data: $data) {
       id
       quantity
     }
   }
 `;
 
-class AddResult extends Component {
+class ResultCollector extends Component {
   render() {
     const { experimentId } = this.props;
     return (
@@ -28,4 +28,5 @@ class AddResult extends Component {
   }
 }
 
-export default AddResult;
+export default ResultCollector;
+export { ADD_RESULT_MUTATION };

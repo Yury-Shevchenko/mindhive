@@ -33,6 +33,26 @@ const Query = {
     // query all users
     return ctx.db.query.profiles({}, info);
   },
+
+  async myResults(parent, args, ctx, info) {
+    // check if the user has permission to see all users
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in');
+    }
+
+    // hasPermission(ctx.request.user, ['IT']);
+    // query all users
+    return ctx.db.query.results(
+      {
+        where: {
+          user: {
+            id: ctx.request.userId,
+          },
+        },
+      },
+      info
+    );
+  },
 };
 
 module.exports = Query;

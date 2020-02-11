@@ -44,6 +44,8 @@ server.start(
       credentials: true,
       origin: process.env.FRONTEND_URL,
     },
+    // https://github.com/expressjs/body-parser#bodyparserjsonoptions
+    bodyParserOptions: { limit: '10mb', type: 'application/json' },
   },
   deets => {
     console.log(`Server is running on port http://localhost:${deets.port}`);

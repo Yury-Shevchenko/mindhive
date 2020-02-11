@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
-
+import Link from 'next/link';
 import { CURRENT_USER_RESULTS_QUERY } from '../User/index';
 import { CartStyles, Supreme, CloseButton, SickButton } from './styles';
 import ResultPane from '../Results/Pane/index';
@@ -55,7 +55,15 @@ class Dashboard extends Component {
               </ul>
               <footer>
                 <p>This is footer</p>
-                <SickButton>Useless button</SickButton>
+                <Link
+                  href={{
+                    pathname: '/res/my',
+                  }}
+                >
+                  <a>
+                    <SickButton>See my results</SickButton>
+                  </a>
+                </Link>
               </footer>
             </CartStyles>
           );

@@ -6,6 +6,7 @@ type Query {
   me: Profile
   users: [Profile]!
   experiment(where: ExperimentWhereUniqueInput): Experiment
+  myResults: [Result]!
 }
 
 type Mutation {
@@ -26,7 +27,7 @@ type Mutation {
   updateExperiment(id: ID!, title: String, description: String): Experiment!
   deleteExperiment(id: ID!): Experiment
 
-  addResult(experimentId: ID!): Result!
+  addResult(experimentId: ID!, data: String): Result!
 }
 
 type SuccessMessage {
