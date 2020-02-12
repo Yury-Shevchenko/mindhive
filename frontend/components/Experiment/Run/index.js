@@ -24,7 +24,7 @@ class RunExperiment extends Component {
             {addResult => (
               <ExperimentWindow
                 settings={{
-                  script: 'Visual search',
+                  script: 'Rating Task',
                   params: { iti: 1000 },
                   eventCallback: e => {
                     console.log('Event callback', e);

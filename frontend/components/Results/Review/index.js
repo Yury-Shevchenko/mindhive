@@ -35,11 +35,11 @@ class ResultReviewer extends Component {
           return (
             <ul>
               {results.map(result => (
-                <p key={result.id}>
+                <div key={result.id}>
                   <h2>Some result(s) from {result.experiment.title}</h2>
                   {result.data}
                   <span>---------</span>
-                </p>
+                </div>
               ))}
             </ul>
           );

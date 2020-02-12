@@ -2,7 +2,7 @@
 
 type Query {
   schools: [School]!
-  experiments: [Experiment]!
+  experiments (where: ExperimentWhereInput, orderBy: ExperimentOrderByInput, skip: Int, first: Int): [Experiment]!
   me: Profile
   users: [Profile]!
   experiment(where: ExperimentWhereUniqueInput): Experiment
