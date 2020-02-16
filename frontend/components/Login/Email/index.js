@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Link from 'next/link';
+import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -34,7 +35,7 @@ class Login extends Component {
         <Mutation
           mutation={LOGIN_MUTATION}
           variables={this.state}
-          refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+          refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
         >
           {(emailLogin, { error, loading }) => (
             <SignForm
@@ -44,6 +45,9 @@ class Login extends Component {
                 const res = await emailLogin();
                 console.log('res', res);
                 this.setState({ password: '', email: '' });
+                Router.push({
+                  pathname: '/bank',
+                });
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
