@@ -10,6 +10,7 @@ const Query = {
   schools: forwardTo('db'),
   experiments: forwardTo('db'),
   experiment: forwardTo('db'),
+  class: forwardTo('db'),
 
   me(parent, args, ctx, info) {
     // check if there is a current user id
@@ -52,6 +53,12 @@ const Query = {
       },
       info
     );
+  },
+
+  // show all classes
+  async classes(parent, args, ctx, info) {
+    // query all classes
+    return ctx.db.query.classes({}, info);
   },
 };
 

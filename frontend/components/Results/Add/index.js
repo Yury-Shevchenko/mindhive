@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+// import { REVIEW_MY_RESULTS } from '../Review/index';
 
 const ADD_RESULT_MUTATION = gql`
   mutation addResult($experimentId: ID!, $data: String) {

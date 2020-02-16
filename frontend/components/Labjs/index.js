@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import clonedeep from 'lodash.clonedeep';
-import './lib/lab';
+import * as lab from './lib/lab';
 
 import visualsearch from './scripts/visualsearch';
 import stroop from './scripts/stroop';

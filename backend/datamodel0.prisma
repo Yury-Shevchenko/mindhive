@@ -17,8 +17,8 @@ type Profile {
   authInvite: [AuthInvite]! @relation(name:"Owner")
   invites: [AuthInvite]! @relation(name:"Invite")
   results: [Result]!
+  studentIn: [Class]! @relation(name:"Studentinclass")
   teacherIn: [Class]! @relation(name:"Classcreator")
-  studentIn: [Class]! @relation(name:"Studentofclass")
 }
 
 type AuthEmail {
@@ -61,7 +61,7 @@ type Class {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   creator: Profile! @relation(name:"Classcreator")
-  students: [Profile]! @relation(name:"Studentofclass")
+  students: [Profile]! @relation(name:"Studentinclass")
 }
 
 type Experiment {

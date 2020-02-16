@@ -10,6 +10,10 @@ const Nav = () => (
   <User>
     {({ data: { me } }) => (
       <NavStyles>
+        <Link href="/classes">
+          <a>Class</a>
+        </Link>
+
         <Link href="/bank">
           <a>Experiments</a>
         </Link>

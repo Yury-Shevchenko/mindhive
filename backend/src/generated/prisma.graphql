@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/shevchenko_yury-d70d0e/mindHive-backend/dev
-# timestamp: Tue Feb 11 2020 15:31:32 GMT+0100 (Central European Standard Time)
+# timestamp: Sun Feb 16 2020 17:49:51 GMT+0100 (Central European Standard Time)
 
 type AggregateAuthEmail {
   count: Int!
@@ -10,6 +10,10 @@ type AggregateAuthInvite {
 }
 
 type AggregateAuthToken {
+  count: Int!
+}
+
+type AggregateClass {
   count: Int!
 }
 
@@ -1308,6 +1312,565 @@ type BatchPayload {
   count: Long!
 }
 
+type Class implements Node {
+  id: ID!
+  title: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  creator: Profile!
+  students(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Profile!]
+}
+
+"""A connection to a list of items."""
+type ClassConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ClassEdge]!
+  aggregate: AggregateClass!
+}
+
+input ClassCreateInput {
+  id: ID
+  title: String!
+  description: String
+  creator: ProfileCreateOneWithoutTeacherInInput!
+  students: ProfileCreateManyWithoutStudentInInput
+}
+
+input ClassCreateManyWithoutCreatorInput {
+  create: [ClassCreateWithoutCreatorInput!]
+  connect: [ClassWhereUniqueInput!]
+}
+
+input ClassCreateManyWithoutStudentsInput {
+  create: [ClassCreateWithoutStudentsInput!]
+  connect: [ClassWhereUniqueInput!]
+}
+
+input ClassCreateWithoutCreatorInput {
+  id: ID
+  title: String!
+  description: String
+  students: ProfileCreateManyWithoutStudentInInput
+}
+
+input ClassCreateWithoutStudentsInput {
+  id: ID
+  title: String!
+  description: String
+  creator: ProfileCreateOneWithoutTeacherInInput!
+}
+
+"""An edge in a connection."""
+type ClassEdge {
+  """The item at the end of the edge."""
+  node: Class!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ClassOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  description_ASC
+  description_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ClassPreviousValues {
+  id: ID!
+  title: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input ClassScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ClassScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ClassScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ClassScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+}
+
+type ClassSubscriptionPayload {
+  mutation: MutationType!
+  node: Class
+  updatedFields: [String!]
+  previousValues: ClassPreviousValues
+}
+
+input ClassSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ClassSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ClassSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ClassSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ClassWhereInput
+}
+
+input ClassUpdateInput {
+  title: String
+  description: String
+  creator: ProfileUpdateOneRequiredWithoutTeacherInInput
+  students: ProfileUpdateManyWithoutStudentInInput
+}
+
+input ClassUpdateManyDataInput {
+  title: String
+  description: String
+}
+
+input ClassUpdateManyMutationInput {
+  title: String
+  description: String
+}
+
+input ClassUpdateManyWithoutCreatorInput {
+  create: [ClassCreateWithoutCreatorInput!]
+  connect: [ClassWhereUniqueInput!]
+  set: [ClassWhereUniqueInput!]
+  disconnect: [ClassWhereUniqueInput!]
+  delete: [ClassWhereUniqueInput!]
+  update: [ClassUpdateWithWhereUniqueWithoutCreatorInput!]
+  updateMany: [ClassUpdateManyWithWhereNestedInput!]
+  deleteMany: [ClassScalarWhereInput!]
+  upsert: [ClassUpsertWithWhereUniqueWithoutCreatorInput!]
+}
+
+input ClassUpdateManyWithoutStudentsInput {
+  create: [ClassCreateWithoutStudentsInput!]
+  connect: [ClassWhereUniqueInput!]
+  set: [ClassWhereUniqueInput!]
+  disconnect: [ClassWhereUniqueInput!]
+  delete: [ClassWhereUniqueInput!]
+  update: [ClassUpdateWithWhereUniqueWithoutStudentsInput!]
+  updateMany: [ClassUpdateManyWithWhereNestedInput!]
+  deleteMany: [ClassScalarWhereInput!]
+  upsert: [ClassUpsertWithWhereUniqueWithoutStudentsInput!]
+}
+
+input ClassUpdateManyWithWhereNestedInput {
+  where: ClassScalarWhereInput!
+  data: ClassUpdateManyDataInput!
+}
+
+input ClassUpdateWithoutCreatorDataInput {
+  title: String
+  description: String
+  students: ProfileUpdateManyWithoutStudentInInput
+}
+
+input ClassUpdateWithoutStudentsDataInput {
+  title: String
+  description: String
+  creator: ProfileUpdateOneRequiredWithoutTeacherInInput
+}
+
+input ClassUpdateWithWhereUniqueWithoutCreatorInput {
+  where: ClassWhereUniqueInput!
+  data: ClassUpdateWithoutCreatorDataInput!
+}
+
+input ClassUpdateWithWhereUniqueWithoutStudentsInput {
+  where: ClassWhereUniqueInput!
+  data: ClassUpdateWithoutStudentsDataInput!
+}
+
+input ClassUpsertWithWhereUniqueWithoutCreatorInput {
+  where: ClassWhereUniqueInput!
+  update: ClassUpdateWithoutCreatorDataInput!
+  create: ClassCreateWithoutCreatorInput!
+}
+
+input ClassUpsertWithWhereUniqueWithoutStudentsInput {
+  where: ClassWhereUniqueInput!
+  update: ClassUpdateWithoutStudentsDataInput!
+  create: ClassCreateWithoutStudentsInput!
+}
+
+input ClassWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ClassWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ClassWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ClassWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  creator: ProfileWhereInput
+  students_every: ProfileWhereInput
+  students_some: ProfileWhereInput
+  students_none: ProfileWhereInput
+}
+
+input ClassWhereUniqueInput {
+  id: ID
+}
+
 scalar DateTime
 
 type Experiment implements Node {
@@ -1726,6 +2289,7 @@ type Mutation {
   createAuthToken(data: AuthTokenCreateInput!): AuthToken!
   createAuthInvite(data: AuthInviteCreateInput!): AuthInvite!
   createSchool(data: SchoolCreateInput!): School!
+  createClass(data: ClassCreateInput!): Class!
   createResult(data: ResultCreateInput!): Result!
   createExperiment(data: ExperimentCreateInput!): Experiment!
   createProfile(data: ProfileCreateInput!): Profile!
@@ -1733,6 +2297,7 @@ type Mutation {
   updateAuthToken(data: AuthTokenUpdateInput!, where: AuthTokenWhereUniqueInput!): AuthToken
   updateAuthInvite(data: AuthInviteUpdateInput!, where: AuthInviteWhereUniqueInput!): AuthInvite
   updateSchool(data: SchoolUpdateInput!, where: SchoolWhereUniqueInput!): School
+  updateClass(data: ClassUpdateInput!, where: ClassWhereUniqueInput!): Class
   updateResult(data: ResultUpdateInput!, where: ResultWhereUniqueInput!): Result
   updateExperiment(data: ExperimentUpdateInput!, where: ExperimentWhereUniqueInput!): Experiment
   updateProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
@@ -1740,6 +2305,7 @@ type Mutation {
   deleteAuthToken(where: AuthTokenWhereUniqueInput!): AuthToken
   deleteAuthInvite(where: AuthInviteWhereUniqueInput!): AuthInvite
   deleteSchool(where: SchoolWhereUniqueInput!): School
+  deleteClass(where: ClassWhereUniqueInput!): Class
   deleteResult(where: ResultWhereUniqueInput!): Result
   deleteExperiment(where: ExperimentWhereUniqueInput!): Experiment
   deleteProfile(where: ProfileWhereUniqueInput!): Profile
@@ -1747,12 +2313,14 @@ type Mutation {
   upsertAuthToken(where: AuthTokenWhereUniqueInput!, create: AuthTokenCreateInput!, update: AuthTokenUpdateInput!): AuthToken!
   upsertAuthInvite(where: AuthInviteWhereUniqueInput!, create: AuthInviteCreateInput!, update: AuthInviteUpdateInput!): AuthInvite!
   upsertSchool(where: SchoolWhereUniqueInput!, create: SchoolCreateInput!, update: SchoolUpdateInput!): School!
+  upsertClass(where: ClassWhereUniqueInput!, create: ClassCreateInput!, update: ClassUpdateInput!): Class!
   upsertResult(where: ResultWhereUniqueInput!, create: ResultCreateInput!, update: ResultUpdateInput!): Result!
   upsertExperiment(where: ExperimentWhereUniqueInput!, create: ExperimentCreateInput!, update: ExperimentUpdateInput!): Experiment!
   upsertProfile(where: ProfileWhereUniqueInput!, create: ProfileCreateInput!, update: ProfileUpdateInput!): Profile!
   updateManyAuthEmails(data: AuthEmailUpdateManyMutationInput!, where: AuthEmailWhereInput): BatchPayload!
   updateManyAuthTokens(data: AuthTokenUpdateManyMutationInput!, where: AuthTokenWhereInput): BatchPayload!
   updateManySchools(data: SchoolUpdateManyMutationInput!, where: SchoolWhereInput): BatchPayload!
+  updateManyClasses(data: ClassUpdateManyMutationInput!, where: ClassWhereInput): BatchPayload!
   updateManyResults(data: ResultUpdateManyMutationInput!, where: ResultWhereInput): BatchPayload!
   updateManyExperiments(data: ExperimentUpdateManyMutationInput!, where: ExperimentWhereInput): BatchPayload!
   updateManyProfiles(data: ProfileUpdateManyMutationInput!, where: ProfileWhereInput): BatchPayload!
@@ -1760,6 +2328,7 @@ type Mutation {
   deleteManyAuthTokens(where: AuthTokenWhereInput): BatchPayload!
   deleteManyAuthInvites(where: AuthInviteWhereInput): BatchPayload!
   deleteManySchools(where: SchoolWhereInput): BatchPayload!
+  deleteManyClasses(where: ClassWhereInput): BatchPayload!
   deleteManyResults(where: ResultWhereInput): BatchPayload!
   deleteManyExperiments(where: ExperimentWhereInput): BatchPayload!
   deleteManyProfiles(where: ProfileWhereInput): BatchPayload!
@@ -1811,6 +2380,8 @@ type Profile implements Node {
   authInvite(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthInvite!]
   invites(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthInvite!]
   results(where: ResultWhereInput, orderBy: ResultOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Result!]
+  teacherIn(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Class!]
+  studentIn(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Class!]
 }
 
 """A connection to a list of items."""
@@ -1832,6 +2403,13 @@ input ProfileCreateInput {
   authInvite: AuthInviteCreateManyWithoutProfileInput
   invites: AuthInviteCreateManyWithoutInvitedByInput
   results: ResultCreateManyWithoutUserInput
+  teacherIn: ClassCreateManyWithoutCreatorInput
+  studentIn: ClassCreateManyWithoutStudentsInput
+}
+
+input ProfileCreateManyWithoutStudentInInput {
+  create: [ProfileCreateWithoutStudentInInput!]
+  connect: [ProfileWhereUniqueInput!]
 }
 
 input ProfileCreateOneInput {
@@ -1864,6 +2442,11 @@ input ProfileCreateOneWithoutResultsInput {
   connect: ProfileWhereUniqueInput
 }
 
+input ProfileCreateOneWithoutTeacherInInput {
+  create: ProfileCreateWithoutTeacherInInput
+  connect: ProfileWhereUniqueInput
+}
+
 input ProfileCreatepermissionsInput {
   set: [Permission!]
 }
@@ -1876,6 +2459,8 @@ input ProfileCreateWithoutAuthEmailInput {
   authInvite: AuthInviteCreateManyWithoutProfileInput
   invites: AuthInviteCreateManyWithoutInvitedByInput
   results: ResultCreateManyWithoutUserInput
+  teacherIn: ClassCreateManyWithoutCreatorInput
+  studentIn: ClassCreateManyWithoutStudentsInput
 }
 
 input ProfileCreateWithoutAuthInviteInput {
@@ -1886,6 +2471,8 @@ input ProfileCreateWithoutAuthInviteInput {
   authToken: AuthTokenCreateManyWithoutProfileInput
   invites: AuthInviteCreateManyWithoutInvitedByInput
   results: ResultCreateManyWithoutUserInput
+  teacherIn: ClassCreateManyWithoutCreatorInput
+  studentIn: ClassCreateManyWithoutStudentsInput
 }
 
 input ProfileCreateWithoutAuthTokenInput {
@@ -1896,6 +2483,8 @@ input ProfileCreateWithoutAuthTokenInput {
   authInvite: AuthInviteCreateManyWithoutProfileInput
   invites: AuthInviteCreateManyWithoutInvitedByInput
   results: ResultCreateManyWithoutUserInput
+  teacherIn: ClassCreateManyWithoutCreatorInput
+  studentIn: ClassCreateManyWithoutStudentsInput
 }
 
 input ProfileCreateWithoutInvitesInput {
@@ -1906,6 +2495,8 @@ input ProfileCreateWithoutInvitesInput {
   authToken: AuthTokenCreateManyWithoutProfileInput
   authInvite: AuthInviteCreateManyWithoutProfileInput
   results: ResultCreateManyWithoutUserInput
+  teacherIn: ClassCreateManyWithoutCreatorInput
+  studentIn: ClassCreateManyWithoutStudentsInput
 }
 
 input ProfileCreateWithoutResultsInput {
@@ -1916,6 +2507,32 @@ input ProfileCreateWithoutResultsInput {
   authToken: AuthTokenCreateManyWithoutProfileInput
   authInvite: AuthInviteCreateManyWithoutProfileInput
   invites: AuthInviteCreateManyWithoutInvitedByInput
+  teacherIn: ClassCreateManyWithoutCreatorInput
+  studentIn: ClassCreateManyWithoutStudentsInput
+}
+
+input ProfileCreateWithoutStudentInInput {
+  id: ID
+  username: String!
+  permissions: ProfileCreatepermissionsInput
+  authEmail: AuthEmailCreateManyWithoutProfileInput
+  authToken: AuthTokenCreateManyWithoutProfileInput
+  authInvite: AuthInviteCreateManyWithoutProfileInput
+  invites: AuthInviteCreateManyWithoutInvitedByInput
+  results: ResultCreateManyWithoutUserInput
+  teacherIn: ClassCreateManyWithoutCreatorInput
+}
+
+input ProfileCreateWithoutTeacherInInput {
+  id: ID
+  username: String!
+  permissions: ProfileCreatepermissionsInput
+  authEmail: AuthEmailCreateManyWithoutProfileInput
+  authToken: AuthTokenCreateManyWithoutProfileInput
+  authInvite: AuthInviteCreateManyWithoutProfileInput
+  invites: AuthInviteCreateManyWithoutInvitedByInput
+  results: ResultCreateManyWithoutUserInput
+  studentIn: ClassCreateManyWithoutStudentsInput
 }
 
 """An edge in a connection."""
@@ -1938,6 +2555,97 @@ type ProfilePreviousValues {
   id: ID!
   username: String!
   permissions: [Permission!]!
+}
+
+input ProfileScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ProfileScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ProfileScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ProfileScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  username: String
+
+  """All values that are not equal to given value."""
+  username_not: String
+
+  """All values that are contained in given list."""
+  username_in: [String!]
+
+  """All values that are not contained in given list."""
+  username_not_in: [String!]
+
+  """All values less than the given value."""
+  username_lt: String
+
+  """All values less than or equal the given value."""
+  username_lte: String
+
+  """All values greater than the given value."""
+  username_gt: String
+
+  """All values greater than or equal the given value."""
+  username_gte: String
+
+  """All values containing the given string."""
+  username_contains: String
+
+  """All values not containing the given string."""
+  username_not_contains: String
+
+  """All values starting with the given string."""
+  username_starts_with: String
+
+  """All values not starting with the given string."""
+  username_not_starts_with: String
+
+  """All values ending with the given string."""
+  username_ends_with: String
+
+  """All values not ending with the given string."""
+  username_not_ends_with: String
 }
 
 type ProfileSubscriptionPayload {
@@ -1987,6 +2695,8 @@ input ProfileUpdateDataInput {
   authInvite: AuthInviteUpdateManyWithoutProfileInput
   invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
+  teacherIn: ClassUpdateManyWithoutCreatorInput
+  studentIn: ClassUpdateManyWithoutStudentsInput
 }
 
 input ProfileUpdateInput {
@@ -1997,11 +2707,35 @@ input ProfileUpdateInput {
   authInvite: AuthInviteUpdateManyWithoutProfileInput
   invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
+  teacherIn: ClassUpdateManyWithoutCreatorInput
+  studentIn: ClassUpdateManyWithoutStudentsInput
+}
+
+input ProfileUpdateManyDataInput {
+  username: String
+  permissions: ProfileUpdatepermissionsInput
 }
 
 input ProfileUpdateManyMutationInput {
   username: String
   permissions: ProfileUpdatepermissionsInput
+}
+
+input ProfileUpdateManyWithoutStudentInInput {
+  create: [ProfileCreateWithoutStudentInInput!]
+  connect: [ProfileWhereUniqueInput!]
+  set: [ProfileWhereUniqueInput!]
+  disconnect: [ProfileWhereUniqueInput!]
+  delete: [ProfileWhereUniqueInput!]
+  update: [ProfileUpdateWithWhereUniqueWithoutStudentInInput!]
+  updateMany: [ProfileUpdateManyWithWhereNestedInput!]
+  deleteMany: [ProfileScalarWhereInput!]
+  upsert: [ProfileUpsertWithWhereUniqueWithoutStudentInInput!]
+}
+
+input ProfileUpdateManyWithWhereNestedInput {
+  where: ProfileScalarWhereInput!
+  data: ProfileUpdateManyDataInput!
 }
 
 input ProfileUpdateOneRequiredInput {
@@ -2046,6 +2780,13 @@ input ProfileUpdateOneRequiredWithoutResultsInput {
   upsert: ProfileUpsertWithoutResultsInput
 }
 
+input ProfileUpdateOneRequiredWithoutTeacherInInput {
+  create: ProfileCreateWithoutTeacherInInput
+  connect: ProfileWhereUniqueInput
+  update: ProfileUpdateWithoutTeacherInDataInput
+  upsert: ProfileUpsertWithoutTeacherInInput
+}
+
 input ProfileUpdatepermissionsInput {
   set: [Permission!]
 }
@@ -2057,6 +2798,8 @@ input ProfileUpdateWithoutAuthEmailDataInput {
   authInvite: AuthInviteUpdateManyWithoutProfileInput
   invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
+  teacherIn: ClassUpdateManyWithoutCreatorInput
+  studentIn: ClassUpdateManyWithoutStudentsInput
 }
 
 input ProfileUpdateWithoutAuthInviteDataInput {
@@ -2066,6 +2809,8 @@ input ProfileUpdateWithoutAuthInviteDataInput {
   authToken: AuthTokenUpdateManyWithoutProfileInput
   invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
+  teacherIn: ClassUpdateManyWithoutCreatorInput
+  studentIn: ClassUpdateManyWithoutStudentsInput
 }
 
 input ProfileUpdateWithoutAuthTokenDataInput {
@@ -2075,6 +2820,8 @@ input ProfileUpdateWithoutAuthTokenDataInput {
   authInvite: AuthInviteUpdateManyWithoutProfileInput
   invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
+  teacherIn: ClassUpdateManyWithoutCreatorInput
+  studentIn: ClassUpdateManyWithoutStudentsInput
 }
 
 input ProfileUpdateWithoutInvitesDataInput {
@@ -2084,6 +2831,8 @@ input ProfileUpdateWithoutInvitesDataInput {
   authToken: AuthTokenUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
   results: ResultUpdateManyWithoutUserInput
+  teacherIn: ClassUpdateManyWithoutCreatorInput
+  studentIn: ClassUpdateManyWithoutStudentsInput
 }
 
 input ProfileUpdateWithoutResultsDataInput {
@@ -2093,6 +2842,35 @@ input ProfileUpdateWithoutResultsDataInput {
   authToken: AuthTokenUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
   invites: AuthInviteUpdateManyWithoutInvitedByInput
+  teacherIn: ClassUpdateManyWithoutCreatorInput
+  studentIn: ClassUpdateManyWithoutStudentsInput
+}
+
+input ProfileUpdateWithoutStudentInDataInput {
+  username: String
+  permissions: ProfileUpdatepermissionsInput
+  authEmail: AuthEmailUpdateManyWithoutProfileInput
+  authToken: AuthTokenUpdateManyWithoutProfileInput
+  authInvite: AuthInviteUpdateManyWithoutProfileInput
+  invites: AuthInviteUpdateManyWithoutInvitedByInput
+  results: ResultUpdateManyWithoutUserInput
+  teacherIn: ClassUpdateManyWithoutCreatorInput
+}
+
+input ProfileUpdateWithoutTeacherInDataInput {
+  username: String
+  permissions: ProfileUpdatepermissionsInput
+  authEmail: AuthEmailUpdateManyWithoutProfileInput
+  authToken: AuthTokenUpdateManyWithoutProfileInput
+  authInvite: AuthInviteUpdateManyWithoutProfileInput
+  invites: AuthInviteUpdateManyWithoutInvitedByInput
+  results: ResultUpdateManyWithoutUserInput
+  studentIn: ClassUpdateManyWithoutStudentsInput
+}
+
+input ProfileUpdateWithWhereUniqueWithoutStudentInInput {
+  where: ProfileWhereUniqueInput!
+  data: ProfileUpdateWithoutStudentInDataInput!
 }
 
 input ProfileUpsertNestedInput {
@@ -2123,6 +2901,17 @@ input ProfileUpsertWithoutInvitesInput {
 input ProfileUpsertWithoutResultsInput {
   update: ProfileUpdateWithoutResultsDataInput!
   create: ProfileCreateWithoutResultsInput!
+}
+
+input ProfileUpsertWithoutTeacherInInput {
+  update: ProfileUpdateWithoutTeacherInDataInput!
+  create: ProfileCreateWithoutTeacherInInput!
+}
+
+input ProfileUpsertWithWhereUniqueWithoutStudentInInput {
+  where: ProfileWhereUniqueInput!
+  update: ProfileUpdateWithoutStudentInDataInput!
+  create: ProfileCreateWithoutStudentInInput!
 }
 
 input ProfileWhereInput {
@@ -2229,6 +3018,12 @@ input ProfileWhereInput {
   results_every: ResultWhereInput
   results_some: ResultWhereInput
   results_none: ResultWhereInput
+  teacherIn_every: ClassWhereInput
+  teacherIn_some: ClassWhereInput
+  teacherIn_none: ClassWhereInput
+  studentIn_every: ClassWhereInput
+  studentIn_some: ClassWhereInput
+  studentIn_none: ClassWhereInput
 }
 
 input ProfileWhereUniqueInput {
@@ -2241,6 +3036,7 @@ type Query {
   authTokens(where: AuthTokenWhereInput, orderBy: AuthTokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthToken]!
   authInvites(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthInvite]!
   schools(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [School]!
+  classes(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Class]!
   results(where: ResultWhereInput, orderBy: ResultOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Result]!
   experiments(where: ExperimentWhereInput, orderBy: ExperimentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Experiment]!
   profiles(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Profile]!
@@ -2248,6 +3044,7 @@ type Query {
   authToken(where: AuthTokenWhereUniqueInput!): AuthToken
   authInvite(where: AuthInviteWhereUniqueInput!): AuthInvite
   school(where: SchoolWhereUniqueInput!): School
+  class(where: ClassWhereUniqueInput!): Class
   result(where: ResultWhereUniqueInput!): Result
   experiment(where: ExperimentWhereUniqueInput!): Experiment
   profile(where: ProfileWhereUniqueInput!): Profile
@@ -2255,6 +3052,7 @@ type Query {
   authTokensConnection(where: AuthTokenWhereInput, orderBy: AuthTokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AuthTokenConnection!
   authInvitesConnection(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AuthInviteConnection!
   schoolsConnection(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SchoolConnection!
+  classesConnection(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClassConnection!
   resultsConnection(where: ResultWhereInput, orderBy: ResultOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ResultConnection!
   experimentsConnection(where: ExperimentWhereInput, orderBy: ExperimentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExperimentConnection!
   profilesConnection(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProfileConnection!
@@ -2272,6 +3070,8 @@ type Result implements Node {
   user: Profile!
   quantity: Int!
   data: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -2320,12 +3120,18 @@ enum ResultOrderByInput {
   quantity_DESC
   data_ASC
   data_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ResultPreviousValues {
   id: ID!
   quantity: Int!
   data: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input ResultScalarWhereInput {
@@ -2439,6 +3245,50 @@ input ResultScalarWhereInput {
 
   """All values not ending with the given string."""
   data_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type ResultSubscriptionPayload {
@@ -2642,6 +3492,50 @@ input ResultWhereInput {
 
   """All values not ending with the given string."""
   data_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   experiment: ExperimentWhereInput
   user: ProfileWhereInput
 }
@@ -2658,6 +3552,7 @@ type School implements Node {
   largeImage: String
   createdAt: DateTime!
   updatedAt: DateTime!
+  creator: Profile!
 }
 
 """A connection to a list of items."""
@@ -2676,6 +3571,7 @@ input SchoolCreateInput {
   description: String
   image: String
   largeImage: String
+  creator: ProfileCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -2758,6 +3654,7 @@ input SchoolUpdateInput {
   description: String
   image: String
   largeImage: String
+  creator: ProfileUpdateOneRequiredInput
 }
 
 input SchoolUpdateManyMutationInput {
@@ -3020,6 +3917,7 @@ input SchoolWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  creator: ProfileWhereInput
 }
 
 input SchoolWhereUniqueInput {
@@ -3031,6 +3929,7 @@ type Subscription {
   authToken(where: AuthTokenSubscriptionWhereInput): AuthTokenSubscriptionPayload
   authInvite(where: AuthInviteSubscriptionWhereInput): AuthInviteSubscriptionPayload
   school(where: SchoolSubscriptionWhereInput): SchoolSubscriptionPayload
+  class(where: ClassSubscriptionWhereInput): ClassSubscriptionPayload
   result(where: ResultSubscriptionWhereInput): ResultSubscriptionPayload
   experiment(where: ExperimentSubscriptionWhereInput): ExperimentSubscriptionPayload
   profile(where: ProfileSubscriptionWhereInput): ProfileSubscriptionPayload

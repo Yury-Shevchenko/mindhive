@@ -7,6 +7,8 @@ type Query {
   users: [Profile]!
   experiment(where: ExperimentWhereUniqueInput): Experiment
   myResults: [Result]!
+  class(where: ClassWhereUniqueInput): Class
+  classes(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, first: Int): [Class]!
 }
 
 type Mutation {
@@ -23,11 +25,17 @@ type Mutation {
   inviteLogin(username: String!, invitedBy: ID!): Profile!
 
   createSchool(title: String!, description: String, image: String, largeImage: String): School!
+
+  createClass(title: String!, description: String): Class!
+  joinClass(id: ID!): SuccessMessage
+  leaveClass(id: ID!): SuccessMessage
+
   createExperiment(title: String!, description: String, image: String, largeImage: String): Experiment!
   updateExperiment(id: ID!, title: String, description: String): Experiment!
   deleteExperiment(id: ID!): Experiment
 
   addResult(experimentId: ID!, data: String): Result!
+  deleteResult(id: ID!): Result
 }
 
 type SuccessMessage {
@@ -39,4 +47,5 @@ type Profile {
   username: String!
   permissions: [Permission!]!
   results: [Result]!
+  studentIn: [Class]!
 }

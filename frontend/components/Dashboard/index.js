@@ -33,8 +33,9 @@ class Dashboard extends Component {
   render() {
     return (
       <Composed>
-        {({ user: { data }, toggleDashboard, localState }) => {
-          const { me } = data;
+        {({ user, toggleDashboard, localState }) => {
+          if (!user.data) return null;
+          const { me } = user.data;
           if (!me) return null;
           return (
             <CartStyles open={localState.data.dashboardOpen}>
@@ -43,6 +44,7 @@ class Dashboard extends Component {
                   &times;
                 </CloseButton>
                 <Supreme>{me.username}'s dashboard</Supreme>
+                <p>You have {me.permissions} permissions</p>
                 <p>
                   You have {me.results.length} result
                   {me.results.length === 1 ? '' : 's'}{' '}
@@ -51,6 +53,12 @@ class Dashboard extends Component {
               <ul>
                 {me.results.map(result => (
                   <ResultPane key={result.id} result={result} />
+                ))}
+              </ul>
+              Your classes
+              <ul>
+                {me.studentIn.map(schoolclass => (
+                  <div key={schoolclass.id}>{schoolclass.title}</div>
                 ))}
               </ul>
               <footer>

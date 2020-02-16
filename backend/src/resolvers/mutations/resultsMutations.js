@@ -42,6 +42,23 @@ const resultsMutations = {
       info
     );
   },
+
+  // delete result
+  async deleteResult(parent, args, ctx, info) {
+    const where = { id: args.id };
+    // find result
+    const result = await ctx.db.query.result({ where }, `{ id user {id} }`);
+    // check whether user has permissions to delete the item or it is the result of this user
+    const ownsResult = result.user.id === ctx.request.userId;
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ['ADMIN'].includes(permission)
+    );
+    if (!ownsResult && !hasPermissions) {
+      throw new Error(`You don't have permission to do that!`);
+    }
+    // delete it
+    return ctx.db.mutation.deleteResult({ where }, info);
+  },
 };
 
 module.exports = resultsMutations;

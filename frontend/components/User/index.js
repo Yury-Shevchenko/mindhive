@@ -16,6 +16,11 @@ const CURRENT_USER_RESULTS_QUERY = gql`
           title
         }
         quantity
+        updatedAt
+      }
+      studentIn {
+        id
+        title
       }
     }
   }

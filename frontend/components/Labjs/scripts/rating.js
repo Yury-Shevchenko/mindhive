@@ -3,7 +3,6 @@ import * as path from 'path';
 const rootFolder = __dirname;
 const assetsDirectory = path.join(
   rootFolder,
-  'static',
   'content',
   'experiments',
   'Rating',
@@ -178,7 +177,7 @@ const studyObject = {
                   title: 'Statement',
                   content:
                     '\u003Cmain\u003E\n\n  \u003Ch2\u003E ${parameters.statement} \u003C\u002Fh2\u003E\n\n  \u003Cp\u003E\n      \u003Cimg src=${this.files[parameters.image]} alt=${parameters.image} height="400" width="400"\u003E\n  \u003C\u002Fp\u003E\n\n\n\u003C\u002Fmain\u003E',
-                  timeout: '30000',
+                  timeout: '3000',
                 },
                 {
                   type: 'lab.html.Form',
