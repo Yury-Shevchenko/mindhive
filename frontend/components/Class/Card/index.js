@@ -8,6 +8,8 @@ import { StyledCard } from '../../Styles/Cards';
 
 import { ContainerOnlyForTeachers } from '../../Permissions/Teacher/index';
 
+import User from '../../User/index';
+
 class ClassCard extends Component {
   // prop types https://reactjs.org/docs/typechecking-with-proptypes.html
   static propTypes = {
@@ -44,7 +46,20 @@ class ClassCard extends Component {
             </a>
           </Link>
         </ContainerOnlyForTeachers>
+
         <JoinClass id={schoolclass.id}>Join this class</JoinClass>
+
+        <Link
+          href={{
+            pathname: '/sign/invite',
+            query: { id: schoolclass.creator.id },
+          }}
+        >
+          <a>
+            <h2>Sign in</h2>
+          </a>
+        </Link>
+
         <LeaveClass id={schoolclass.id}>Leave this class</LeaveClass>
       </StyledCard>
     );

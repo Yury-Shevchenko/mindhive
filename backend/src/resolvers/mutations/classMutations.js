@@ -78,6 +78,24 @@ const classMutations = {
 
     return { message: 'You left the class!' };
   },
+
+  // update the class
+  updateClass(parent, args, ctx, info) {
+    // take a copy of updates
+    const updates = { ...args };
+    // remove the ID from the updates
+    delete updates.id;
+    // run the update method
+    return ctx.db.mutation.updateClass(
+      {
+        data: updates,
+        where: {
+          id: args.id,
+        },
+      },
+      info
+    );
+  },
 };
 
 module.exports = classMutations;

@@ -18,7 +18,7 @@ const INVITE_SIGNUP_MUTATION = gql`
 class InviteSignup extends Component {
   state = {
     username: 'dag',
-    invitedBy: 'ck6aoz12hfgrs0901r7rti92h',
+    invitedBy: this.props.invitedBy,
   };
 
   saveToState = e => {

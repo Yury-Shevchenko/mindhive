@@ -28,7 +28,12 @@ const Nav = () => (
 
         {me && (
           <>
+            <Link href="/me">
+              <a>Me</a>
+            </Link>
+
             <Signout />
+
             <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
               {toggleDashboard => (
                 <button onClick={toggleDashboard}>Dashboard</button>

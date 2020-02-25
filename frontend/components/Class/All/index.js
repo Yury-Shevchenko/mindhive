@@ -12,6 +12,7 @@ const ALL_CLASSES_QUERY = gql`
       title
       description
       creator {
+        id
         username
       }
     }

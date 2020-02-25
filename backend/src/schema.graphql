@@ -1,14 +1,14 @@
 # import * from './generated/prisma.graphql'
 
 type Query {
-  schools: [School]!
-  experiments (where: ExperimentWhereInput, orderBy: ExperimentOrderByInput, skip: Int, first: Int): [Experiment]!
   me: Profile
   users: [Profile]!
+  schools: [School]!
   experiment(where: ExperimentWhereUniqueInput): Experiment
-  myResults: [Result]!
+  experiments (where: ExperimentWhereInput, orderBy: ExperimentOrderByInput, skip: Int, first: Int): [Experiment]!
   class(where: ClassWhereUniqueInput): Class
   classes(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, first: Int): [Class]!
+  myResults: [Result]!
 }
 
 type Mutation {
@@ -26,7 +26,8 @@ type Mutation {
 
   createSchool(title: String!, description: String, image: String, largeImage: String): School!
 
-  createClass(title: String!, description: String): Class!
+  createClass(title: String!, description: String, image: String, largeImage: String): Class!
+  updateClass(id: ID!, title: String, description: String, image: String, largeImage: String): Class!
   joinClass(id: ID!): SuccessMessage
   leaveClass(id: ID!): SuccessMessage
 

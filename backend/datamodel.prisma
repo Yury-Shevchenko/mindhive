@@ -41,6 +41,7 @@ type AuthInvite {
   id: ID! @id
   profile: Profile! @relation(name:"Owner")
   invitedBy: Profile! @relation(name:"Invite")
+  // TODO change invitedBy to the class (students create accounts by signing into the class, so the join the class automatically)
 }
 
 type School {
@@ -58,6 +59,8 @@ type Class {
   id: ID! @id
   title: String!
   description: String
+  image: String
+  largeImage: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   creator: Profile! @relation(name:"Classcreator")

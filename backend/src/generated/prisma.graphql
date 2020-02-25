@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/shevchenko_yury-d70d0e/mindHive-backend/dev
-# timestamp: Sun Feb 16 2020 17:49:51 GMT+0100 (Central European Standard Time)
+# timestamp: Mon Feb 17 2020 21:22:16 GMT+0100 (Central European Standard Time)
 
 type AggregateAuthEmail {
   count: Int!
@@ -1316,6 +1316,8 @@ type Class implements Node {
   id: ID!
   title: String!
   description: String
+  image: String
+  largeImage: String
   createdAt: DateTime!
   updatedAt: DateTime!
   creator: Profile!
@@ -1336,6 +1338,8 @@ input ClassCreateInput {
   id: ID
   title: String!
   description: String
+  image: String
+  largeImage: String
   creator: ProfileCreateOneWithoutTeacherInInput!
   students: ProfileCreateManyWithoutStudentInInput
 }
@@ -1354,6 +1358,8 @@ input ClassCreateWithoutCreatorInput {
   id: ID
   title: String!
   description: String
+  image: String
+  largeImage: String
   students: ProfileCreateManyWithoutStudentInInput
 }
 
@@ -1361,6 +1367,8 @@ input ClassCreateWithoutStudentsInput {
   id: ID
   title: String!
   description: String
+  image: String
+  largeImage: String
   creator: ProfileCreateOneWithoutTeacherInInput!
 }
 
@@ -1380,6 +1388,10 @@ enum ClassOrderByInput {
   title_DESC
   description_ASC
   description_DESC
+  image_ASC
+  image_DESC
+  largeImage_ASC
+  largeImage_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1390,6 +1402,8 @@ type ClassPreviousValues {
   id: ID!
   title: String!
   description: String
+  image: String
+  largeImage: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1523,6 +1537,86 @@ input ClassScalarWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
+  largeImage: String
+
+  """All values that are not equal to given value."""
+  largeImage_not: String
+
+  """All values that are contained in given list."""
+  largeImage_in: [String!]
+
+  """All values that are not contained in given list."""
+  largeImage_not_in: [String!]
+
+  """All values less than the given value."""
+  largeImage_lt: String
+
+  """All values less than or equal the given value."""
+  largeImage_lte: String
+
+  """All values greater than the given value."""
+  largeImage_gt: String
+
+  """All values greater than or equal the given value."""
+  largeImage_gte: String
+
+  """All values containing the given string."""
+  largeImage_contains: String
+
+  """All values not containing the given string."""
+  largeImage_not_contains: String
+
+  """All values starting with the given string."""
+  largeImage_starts_with: String
+
+  """All values not starting with the given string."""
+  largeImage_not_starts_with: String
+
+  """All values ending with the given string."""
+  largeImage_ends_with: String
+
+  """All values not ending with the given string."""
+  largeImage_not_ends_with: String
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -1611,6 +1705,8 @@ input ClassSubscriptionWhereInput {
 input ClassUpdateInput {
   title: String
   description: String
+  image: String
+  largeImage: String
   creator: ProfileUpdateOneRequiredWithoutTeacherInInput
   students: ProfileUpdateManyWithoutStudentInInput
 }
@@ -1618,11 +1714,15 @@ input ClassUpdateInput {
 input ClassUpdateManyDataInput {
   title: String
   description: String
+  image: String
+  largeImage: String
 }
 
 input ClassUpdateManyMutationInput {
   title: String
   description: String
+  image: String
+  largeImage: String
 }
 
 input ClassUpdateManyWithoutCreatorInput {
@@ -1657,12 +1757,16 @@ input ClassUpdateManyWithWhereNestedInput {
 input ClassUpdateWithoutCreatorDataInput {
   title: String
   description: String
+  image: String
+  largeImage: String
   students: ProfileUpdateManyWithoutStudentInInput
 }
 
 input ClassUpdateWithoutStudentsDataInput {
   title: String
   description: String
+  image: String
+  largeImage: String
   creator: ProfileUpdateOneRequiredWithoutTeacherInInput
 }
 
@@ -1817,6 +1921,86 @@ input ClassWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
+  largeImage: String
+
+  """All values that are not equal to given value."""
+  largeImage_not: String
+
+  """All values that are contained in given list."""
+  largeImage_in: [String!]
+
+  """All values that are not contained in given list."""
+  largeImage_not_in: [String!]
+
+  """All values less than the given value."""
+  largeImage_lt: String
+
+  """All values less than or equal the given value."""
+  largeImage_lte: String
+
+  """All values greater than the given value."""
+  largeImage_gt: String
+
+  """All values greater than or equal the given value."""
+  largeImage_gte: String
+
+  """All values containing the given string."""
+  largeImage_contains: String
+
+  """All values not containing the given string."""
+  largeImage_not_contains: String
+
+  """All values starting with the given string."""
+  largeImage_starts_with: String
+
+  """All values not starting with the given string."""
+  largeImage_not_starts_with: String
+
+  """All values ending with the given string."""
+  largeImage_ends_with: String
+
+  """All values not ending with the given string."""
+  largeImage_not_ends_with: String
   createdAt: DateTime
 
   """All values that are not equal to given value."""

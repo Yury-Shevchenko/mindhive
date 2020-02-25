@@ -1,9 +1,9 @@
 import InviteSignup from '../../components/Sign/Invite/index';
 import Page from '../../components/Page/index';
 
-const InviteSignupPage = props => (
+const InviteSignupPage = ({ query }) => (
   <Page>
-    <InviteSignup />
+    <InviteSignup invitedBy={query.id} />
   </Page>
 );
 

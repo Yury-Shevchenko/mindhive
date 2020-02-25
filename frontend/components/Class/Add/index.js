@@ -6,8 +6,18 @@ import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 
 const CREATE_NEW_CLASS = gql`
-  mutation CREATE_NEW_CLASS($title: String!, $description: String) {
-    createClass(title: $title, description: $description) {
+  mutation CREATE_NEW_CLASS(
+    $title: String!
+    $description: String
+    $image: String
+    $largeImage: String
+  ) {
+    createClass(
+      title: $title
+      description: $description
+      image: $image
+      largeImage: $largeImage
+    ) {
       id
     }
   }
@@ -17,6 +27,8 @@ class AddClass extends Component {
   state = {
     title: 'Test title for the class',
     description: 'Test description of the class',
+    image: 'nothing',
+    largeImage: 'largenothing',
   };
 
   handleChange = e => {
@@ -24,6 +36,28 @@ class AddClass extends Component {
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
       [name]: value,
+    });
+  };
+
+  // method for uploading images
+  uploadImage = async e => {
+    console.log('uploading image');
+    const { files } = e.target;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'mindhive');
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/mindhive/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      }
+    );
+    const file = await res.json();
+    console.log('file', file);
+    this.setState({
+      image: file.secure_url,
+      largeImage: file.eager[0].secure_url,
     });
   };
 
@@ -45,6 +79,24 @@ class AddClass extends Component {
             <h2>Add a new class</h2>
             <Error error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
+              <label htmlFor="image">
+                Image
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  placeholder="Upload an image"
+                  onChange={this.uploadImage}
+                />
+                {this.state.image && (
+                  <img
+                    src={this.state.image}
+                    width="200"
+                    alt="Upload preview"
+                  />
+                )}
+              </label>
+
               <label htmlFor="title">
                 Title
                 <input
