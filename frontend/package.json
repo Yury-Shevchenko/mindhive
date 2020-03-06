@@ -6,13 +6,14 @@
   "scripts": {
     "dev": "next -p 7777",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "test": "NODE_ENV=test jest --watch",
     "test-win": "SET NODE_ENV=test&& jest --watch",
     "heroku-postbuild": "next build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "testcafe": "testcafe chrome tests/"
+    "testcafe": "testcafe chrome tests/",
+    "heroku-postbuild": "next build",
   },
   "author": "",
   "license": "ISC",
