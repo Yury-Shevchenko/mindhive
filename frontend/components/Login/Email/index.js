@@ -46,12 +46,12 @@ class Login extends Component {
                 console.log('res', res);
                 this.setState({ password: '', email: '' });
                 Router.push({
-                  pathname: '/bank',
+                  pathname: '/me',
                 });
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
-                <h3>Login</h3>
+                <h3>Login as a teacher or mentor</h3>
                 <Error error={error} />
                 <label htmlFor="email">
                   Email

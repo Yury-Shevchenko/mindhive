@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import ResultPane from '../../Results/Pane/index';
 
+import { ContainerOnlyForTeachers } from '../../Permissions/Teacher/index';
+
 /* eslint-disable */
 // compose all components together
 const Composed = adopt({
@@ -55,6 +57,17 @@ class Me extends Component {
                     <button>See my results</button>
                   </a>
                 </Link>
+                <ContainerOnlyForTeachers>
+                  <Link
+                    href={{
+                      pathname: '/class/add',
+                    }}
+                  >
+                    <a>
+                      <button>Add new class</button>
+                    </a>
+                  </Link>
+                </ContainerOnlyForTeachers>
               </footer>
             </div>
           );

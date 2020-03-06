@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_QUERY } from '../../User/index';
@@ -42,6 +43,16 @@ class TokenSignup extends Component {
               const res = await tokenSignUp();
               console.log('res', res);
               this.setState({ username: '', token: '' });
+              if (this.props.redirect) {
+                Router.push({
+                  pathname: '/exp/run',
+                  query: { id: this.props.redirect },
+                });
+              } else {
+                Router.push({
+                  pathname: '/me',
+                });
+              }
             }}
           >
             <fieldset disabled={loading} aria-busy={loading}>

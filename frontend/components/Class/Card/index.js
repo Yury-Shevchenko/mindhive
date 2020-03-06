@@ -6,7 +6,17 @@ import JoinClass from '../Join/index';
 import LeaveClass from '../Leave/index';
 import { StyledCard } from '../../Styles/Cards';
 
-import { ContainerOnlyForTeachers } from '../../Permissions/Teacher/index';
+import { ContainerOnlyForTeachersOwners } from '../../Permissions/Teacher/index';
+
+import {
+  ContainerOnlyForStudents,
+  ContainerOnlyForStudentsInClass,
+  ContainerOnlyForStudentsOutClass,
+} from '../../Permissions/Student/index';
+
+import { ContainerOnlyForNoProfile } from '../../Permissions/NoProfile/index';
+
+import DeleteClass from '../Delete/index';
 
 import User from '../../User/index';
 
@@ -34,7 +44,8 @@ class ClassCard extends Component {
             <p>Teacher {schoolclass.creator.username}</p>
           </a>
         </Link>
-        <ContainerOnlyForTeachers>
+
+        <ContainerOnlyForTeachersOwners creator={schoolclass.creator.id}>
           <Link
             href={{
               pathname: '/class/edit',
@@ -45,22 +56,28 @@ class ClassCard extends Component {
               <h2>Edit</h2>
             </a>
           </Link>
-        </ContainerOnlyForTeachers>
+          <DeleteClass id={schoolclass.id}>Delete</DeleteClass>
+        </ContainerOnlyForTeachersOwners>
 
-        <JoinClass id={schoolclass.id}>Join this class</JoinClass>
+        <ContainerOnlyForStudentsInClass id={schoolclass.id}>
+          <LeaveClass id={schoolclass.id}>Leave this class</LeaveClass>
+        </ContainerOnlyForStudentsInClass>
+        <ContainerOnlyForStudentsOutClass id={schoolclass.id}>
+          <JoinClass id={schoolclass.id}>Join this class</JoinClass>
+        </ContainerOnlyForStudentsOutClass>
 
-        <Link
-          href={{
-            pathname: '/sign/invite',
-            query: { id: schoolclass.creator.id },
-          }}
-        >
-          <a>
-            <h2>Sign in</h2>
-          </a>
-        </Link>
-
-        <LeaveClass id={schoolclass.id}>Leave this class</LeaveClass>
+        <ContainerOnlyForNoProfile>
+          <Link
+            href={{
+              pathname: '/sign/invite',
+              query: { id: schoolclass.id },
+            }}
+          >
+            <a>
+              <h2>Sign up as a student</h2>
+            </a>
+          </Link>
+        </ContainerOnlyForNoProfile>
       </StyledCard>
     );
   }

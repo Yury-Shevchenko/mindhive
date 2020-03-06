@@ -6,7 +6,7 @@ import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 // import { REVIEW_MY_RESULTS } from '../Review/index';
 
 const ADD_RESULT_MUTATION = gql`
-  mutation addResult($experimentId: ID!, $data: String) {
+  mutation addResult($experimentId: ID!, $data: Json) {
     addResult(experimentId: $experimentId, data: $data) {
       id
       quantity

@@ -11,19 +11,11 @@ const Nav = () => (
     {({ data: { me } }) => (
       <NavStyles>
         <Link href="/classes">
-          <a>Class</a>
+          <a>Classes</a>
         </Link>
 
         <Link href="/bank">
           <a>Experiments</a>
-        </Link>
-
-        <Link href="/journal">
-          <a>Journal</a>
-        </Link>
-
-        <Link href="/resources">
-          <a>Recources</a>
         </Link>
 
         {me && (

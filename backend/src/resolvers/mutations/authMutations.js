@@ -18,7 +18,7 @@ const authMutations = {
       {
         data: {
           username: args.username,
-          permissions: { set: ['IT'] },
+          permissions: { set: ['TEACHER'] },
         },
       },
       `{ id }`
@@ -318,9 +318,9 @@ const authMutations = {
     const authInvite = await ctx.db.mutation.createAuthInvite(
       {
         data: {
-          invitedBy: {
+          invitedIn: {
             connect: {
-              id: args.invitedBy,
+              id: args.invitedIn,
             },
           },
           profile: {
@@ -334,12 +334,18 @@ const authMutations = {
     );
     console.log('created auth invite identity');
     // connect the invite auth identity to profile
+    // TODO connect the student to the class - make the student the member of the class
     const updatedProfile = await ctx.db.mutation.updateProfile(
       {
         data: {
           authInvite: {
             connect: {
               id: authInvite.id,
+            },
+          },
+          studentIn: {
+            connect: {
+              id: args.invitedIn,
             },
           },
         },
@@ -374,7 +380,7 @@ const authMutations = {
           username: args.username,
         },
       },
-      `{ id username permissions authInvite { id invitedBy {id} } }`
+      `{ id username permissions authInvite { id invitedIn {id} } }`
     );
 
     // throw error if there is no user with the provided username
@@ -387,10 +393,11 @@ const authMutations = {
     if (!profile.authInvite.length) {
       throw new Error(`No invitations found for ${args.username}`);
     }
-    const hosts = profile.authInvite.map(invite => invite.invitedBy.id);
+    const hosts = profile.authInvite.map(invite => invite.invitedIn.id);
+    console.log('hosts', hosts, args.invitedIn);
 
     // throw error if there is the name of the host is wrong
-    if (!hosts.includes(args.invitedBy)) {
+    if (!hosts.includes(args.invitedIn)) {
       throw new Error(
         `No invitations from the chosen host found for ${args.username}`
       );

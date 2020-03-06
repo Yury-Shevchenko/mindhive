@@ -7,6 +7,7 @@ import stroop from './scripts/stroop';
 import multitasking from './scripts/multitasking';
 import faceshouses from './scripts/faceshouses';
 import rating from './scripts/rating';
+import risk from './scripts/risktaking';
 
 class ExperimentWindow extends Component {
   constructor(props) {
@@ -16,6 +17,10 @@ class ExperimentWindow extends Component {
   componentDidMount() {
     const { props } = this;
     switch (props.settings.script) {
+      case 'Risk':
+        risk.parameters = props.settings.params;
+        this.study = lab.util.fromObject(clonedeep(risk), lab);
+        break;
       case 'Rating Task':
         rating.parameters = props.settings.params;
         this.study = lab.util.fromObject(clonedeep(rating), lab);
@@ -49,9 +54,10 @@ class ExperimentWindow extends Component {
     }
     this.study.run();
     this.study.on('end', () => {
-      const csv = this.study.options.datastore.exportCsv();
+      // const csv = this.study.options.datastore.exportCsv();
+      const json = this.study.options.datastore.data;
       this.study = undefined;
-      props.settings.on_finish(csv);
+      props.settings.on_finish(json);
     });
     this.study.parameters.callbackForEEG = e => {
       props.settings.eventCallback(e);

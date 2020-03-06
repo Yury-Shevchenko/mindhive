@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
@@ -47,10 +48,13 @@ class Signup extends Component {
               const res = await emailSignUp();
               console.log('res', res);
               this.setState({ username: '', password: '', email: '' });
+              Router.push({
+                pathname: '/me',
+              });
             }}
           >
             <fieldset disabled={loading} aria-busy={loading}>
-              <h3>Sign up</h3>
+              <h3>Sign up as a teacher or mentor</h3>
               <Error error={error} />
               <label htmlFor="email">
                 Email

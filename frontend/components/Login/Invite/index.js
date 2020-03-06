@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Link from 'next/link';
+import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_QUERY } from '../../User/index';
 
 const INVITE_LOGIN_MUTATION = gql`
-  mutation INVITE_LOGIN_MUTATION($username: String!, $invitedBy: ID!) {
-    inviteLogin(username: $username, invitedBy: $invitedBy) {
+  mutation INVITE_LOGIN_MUTATION($username: String!, $invitedIn: ID!) {
+    inviteLogin(username: $username, invitedIn: $invitedIn) {
       id
       username
       permissions
@@ -18,8 +19,8 @@ const INVITE_LOGIN_MUTATION = gql`
 
 class InviteLogin extends Component {
   state = {
-    username: 'dag',
-    invitedBy: 'ck6aoz12hfgrs0901r7rti92h',
+    username: 'new test student',
+    invitedIn: 'ck7amwshxs4wt0986t2v0jht9',
   };
 
   saveToState = e => {
@@ -44,18 +45,21 @@ class InviteLogin extends Component {
                 const res = await tokenLogin();
                 console.log('res', res);
                 this.setState({ token: '' });
+                Router.push({
+                  pathname: '/me',
+                });
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
-                <h3>Login with invitation</h3>
+                <h3>Login as a student</h3>
                 <Error error={error} />
-                <label htmlFor="invitedBy">
+                <label htmlFor="invitedIn">
                   Invitation ID
                   <input
                     type="text"
-                    name="invitedBy"
-                    placeholder="invitedBy"
-                    value={this.state.invitedBy}
+                    name="invitedIn"
+                    placeholder="invitedIn"
+                    value={this.state.invitedIn}
                     onChange={this.saveToState}
                   />
                 </label>
@@ -69,7 +73,7 @@ class InviteLogin extends Component {
                     onChange={this.saveToState}
                   />
                 </label>
-                <button type="submit">Login with invitation</button>
+                <button type="submit">Login</button>
               </fieldset>
             </SignForm>
           )}

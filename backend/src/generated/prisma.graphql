@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/shevchenko_yury-d70d0e/mindHive-backend/dev
-# timestamp: Mon Feb 17 2020 21:22:16 GMT+0100 (Central European Standard Time)
+# timestamp: Fri Mar 06 2020 13:52:52 GMT+0100 (Central European Standard Time)
 
 type AggregateAuthEmail {
   count: Int!
@@ -631,7 +631,7 @@ input AuthEmailWhereUniqueInput {
 type AuthInvite implements Node {
   id: ID!
   profile: Profile!
-  invitedBy: Profile!
+  invitedIn: Class!
 }
 
 """A connection to a list of items."""
@@ -647,11 +647,11 @@ type AuthInviteConnection {
 input AuthInviteCreateInput {
   id: ID
   profile: ProfileCreateOneWithoutAuthInviteInput!
-  invitedBy: ProfileCreateOneWithoutInvitesInput!
+  invitedIn: ClassCreateOneWithoutInvitesInput!
 }
 
-input AuthInviteCreateManyWithoutInvitedByInput {
-  create: [AuthInviteCreateWithoutInvitedByInput!]
+input AuthInviteCreateManyWithoutInvitedInInput {
+  create: [AuthInviteCreateWithoutInvitedInInput!]
   connect: [AuthInviteWhereUniqueInput!]
 }
 
@@ -660,14 +660,14 @@ input AuthInviteCreateManyWithoutProfileInput {
   connect: [AuthInviteWhereUniqueInput!]
 }
 
-input AuthInviteCreateWithoutInvitedByInput {
+input AuthInviteCreateWithoutInvitedInInput {
   id: ID
   profile: ProfileCreateOneWithoutAuthInviteInput!
 }
 
 input AuthInviteCreateWithoutProfileInput {
   id: ID
-  invitedBy: ProfileCreateOneWithoutInvitesInput!
+  invitedIn: ClassCreateOneWithoutInvitesInput!
 }
 
 """An edge in a connection."""
@@ -780,18 +780,18 @@ input AuthInviteSubscriptionWhereInput {
 
 input AuthInviteUpdateInput {
   profile: ProfileUpdateOneRequiredWithoutAuthInviteInput
-  invitedBy: ProfileUpdateOneRequiredWithoutInvitesInput
+  invitedIn: ClassUpdateOneRequiredWithoutInvitesInput
 }
 
-input AuthInviteUpdateManyWithoutInvitedByInput {
-  create: [AuthInviteCreateWithoutInvitedByInput!]
+input AuthInviteUpdateManyWithoutInvitedInInput {
+  create: [AuthInviteCreateWithoutInvitedInInput!]
   connect: [AuthInviteWhereUniqueInput!]
   set: [AuthInviteWhereUniqueInput!]
   disconnect: [AuthInviteWhereUniqueInput!]
   delete: [AuthInviteWhereUniqueInput!]
-  update: [AuthInviteUpdateWithWhereUniqueWithoutInvitedByInput!]
+  update: [AuthInviteUpdateWithWhereUniqueWithoutInvitedInInput!]
   deleteMany: [AuthInviteScalarWhereInput!]
-  upsert: [AuthInviteUpsertWithWhereUniqueWithoutInvitedByInput!]
+  upsert: [AuthInviteUpsertWithWhereUniqueWithoutInvitedInInput!]
 }
 
 input AuthInviteUpdateManyWithoutProfileInput {
@@ -805,17 +805,17 @@ input AuthInviteUpdateManyWithoutProfileInput {
   upsert: [AuthInviteUpsertWithWhereUniqueWithoutProfileInput!]
 }
 
-input AuthInviteUpdateWithoutInvitedByDataInput {
+input AuthInviteUpdateWithoutInvitedInDataInput {
   profile: ProfileUpdateOneRequiredWithoutAuthInviteInput
 }
 
 input AuthInviteUpdateWithoutProfileDataInput {
-  invitedBy: ProfileUpdateOneRequiredWithoutInvitesInput
+  invitedIn: ClassUpdateOneRequiredWithoutInvitesInput
 }
 
-input AuthInviteUpdateWithWhereUniqueWithoutInvitedByInput {
+input AuthInviteUpdateWithWhereUniqueWithoutInvitedInInput {
   where: AuthInviteWhereUniqueInput!
-  data: AuthInviteUpdateWithoutInvitedByDataInput!
+  data: AuthInviteUpdateWithoutInvitedInDataInput!
 }
 
 input AuthInviteUpdateWithWhereUniqueWithoutProfileInput {
@@ -823,10 +823,10 @@ input AuthInviteUpdateWithWhereUniqueWithoutProfileInput {
   data: AuthInviteUpdateWithoutProfileDataInput!
 }
 
-input AuthInviteUpsertWithWhereUniqueWithoutInvitedByInput {
+input AuthInviteUpsertWithWhereUniqueWithoutInvitedInInput {
   where: AuthInviteWhereUniqueInput!
-  update: AuthInviteUpdateWithoutInvitedByDataInput!
-  create: AuthInviteCreateWithoutInvitedByInput!
+  update: AuthInviteUpdateWithoutInvitedInDataInput!
+  create: AuthInviteCreateWithoutInvitedInInput!
 }
 
 input AuthInviteUpsertWithWhereUniqueWithoutProfileInput {
@@ -885,7 +885,7 @@ input AuthInviteWhereInput {
   """All values not ending with the given string."""
   id_not_ends_with: ID
   profile: ProfileWhereInput
-  invitedBy: ProfileWhereInput
+  invitedIn: ClassWhereInput
 }
 
 input AuthInviteWhereUniqueInput {
@@ -1322,6 +1322,7 @@ type Class implements Node {
   updatedAt: DateTime!
   creator: Profile!
   students(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Profile!]
+  invites(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthInvite!]
 }
 
 """A connection to a list of items."""
@@ -1342,6 +1343,7 @@ input ClassCreateInput {
   largeImage: String
   creator: ProfileCreateOneWithoutTeacherInInput!
   students: ProfileCreateManyWithoutStudentInInput
+  invites: AuthInviteCreateManyWithoutInvitedInInput
 }
 
 input ClassCreateManyWithoutCreatorInput {
@@ -1354,12 +1356,28 @@ input ClassCreateManyWithoutStudentsInput {
   connect: [ClassWhereUniqueInput!]
 }
 
+input ClassCreateOneWithoutInvitesInput {
+  create: ClassCreateWithoutInvitesInput
+  connect: ClassWhereUniqueInput
+}
+
 input ClassCreateWithoutCreatorInput {
   id: ID
   title: String!
   description: String
   image: String
   largeImage: String
+  students: ProfileCreateManyWithoutStudentInInput
+  invites: AuthInviteCreateManyWithoutInvitedInInput
+}
+
+input ClassCreateWithoutInvitesInput {
+  id: ID
+  title: String!
+  description: String
+  image: String
+  largeImage: String
+  creator: ProfileCreateOneWithoutTeacherInInput!
   students: ProfileCreateManyWithoutStudentInInput
 }
 
@@ -1370,6 +1388,7 @@ input ClassCreateWithoutStudentsInput {
   image: String
   largeImage: String
   creator: ProfileCreateOneWithoutTeacherInInput!
+  invites: AuthInviteCreateManyWithoutInvitedInInput
 }
 
 """An edge in a connection."""
@@ -1709,6 +1728,7 @@ input ClassUpdateInput {
   largeImage: String
   creator: ProfileUpdateOneRequiredWithoutTeacherInInput
   students: ProfileUpdateManyWithoutStudentInInput
+  invites: AuthInviteUpdateManyWithoutInvitedInInput
 }
 
 input ClassUpdateManyDataInput {
@@ -1754,11 +1774,28 @@ input ClassUpdateManyWithWhereNestedInput {
   data: ClassUpdateManyDataInput!
 }
 
+input ClassUpdateOneRequiredWithoutInvitesInput {
+  create: ClassCreateWithoutInvitesInput
+  connect: ClassWhereUniqueInput
+  update: ClassUpdateWithoutInvitesDataInput
+  upsert: ClassUpsertWithoutInvitesInput
+}
+
 input ClassUpdateWithoutCreatorDataInput {
   title: String
   description: String
   image: String
   largeImage: String
+  students: ProfileUpdateManyWithoutStudentInInput
+  invites: AuthInviteUpdateManyWithoutInvitedInInput
+}
+
+input ClassUpdateWithoutInvitesDataInput {
+  title: String
+  description: String
+  image: String
+  largeImage: String
+  creator: ProfileUpdateOneRequiredWithoutTeacherInInput
   students: ProfileUpdateManyWithoutStudentInInput
 }
 
@@ -1768,6 +1805,7 @@ input ClassUpdateWithoutStudentsDataInput {
   image: String
   largeImage: String
   creator: ProfileUpdateOneRequiredWithoutTeacherInInput
+  invites: AuthInviteUpdateManyWithoutInvitedInInput
 }
 
 input ClassUpdateWithWhereUniqueWithoutCreatorInput {
@@ -1778,6 +1816,11 @@ input ClassUpdateWithWhereUniqueWithoutCreatorInput {
 input ClassUpdateWithWhereUniqueWithoutStudentsInput {
   where: ClassWhereUniqueInput!
   data: ClassUpdateWithoutStudentsDataInput!
+}
+
+input ClassUpsertWithoutInvitesInput {
+  update: ClassUpdateWithoutInvitesDataInput!
+  create: ClassCreateWithoutInvitesInput!
 }
 
 input ClassUpsertWithWhereUniqueWithoutCreatorInput {
@@ -2049,6 +2092,9 @@ input ClassWhereInput {
   students_every: ProfileWhereInput
   students_some: ProfileWhereInput
   students_none: ProfileWhereInput
+  invites_every: AuthInviteWhereInput
+  invites_some: AuthInviteWhereInput
+  invites_none: AuthInviteWhereInput
 }
 
 input ClassWhereUniqueInput {
@@ -2462,6 +2508,9 @@ input ExperimentWhereUniqueInput {
   id: ID
 }
 
+"""Raw JSON value"""
+scalar Json
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -2562,7 +2611,6 @@ type Profile implements Node {
   authEmail(where: AuthEmailWhereInput, orderBy: AuthEmailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthEmail!]
   authToken(where: AuthTokenWhereInput, orderBy: AuthTokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthToken!]
   authInvite(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthInvite!]
-  invites(where: AuthInviteWhereInput, orderBy: AuthInviteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AuthInvite!]
   results(where: ResultWhereInput, orderBy: ResultOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Result!]
   teacherIn(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Class!]
   studentIn(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Class!]
@@ -2585,7 +2633,6 @@ input ProfileCreateInput {
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authToken: AuthTokenCreateManyWithoutProfileInput
   authInvite: AuthInviteCreateManyWithoutProfileInput
-  invites: AuthInviteCreateManyWithoutInvitedByInput
   results: ResultCreateManyWithoutUserInput
   teacherIn: ClassCreateManyWithoutCreatorInput
   studentIn: ClassCreateManyWithoutStudentsInput
@@ -2616,11 +2663,6 @@ input ProfileCreateOneWithoutAuthTokenInput {
   connect: ProfileWhereUniqueInput
 }
 
-input ProfileCreateOneWithoutInvitesInput {
-  create: ProfileCreateWithoutInvitesInput
-  connect: ProfileWhereUniqueInput
-}
-
 input ProfileCreateOneWithoutResultsInput {
   create: ProfileCreateWithoutResultsInput
   connect: ProfileWhereUniqueInput
@@ -2641,7 +2683,6 @@ input ProfileCreateWithoutAuthEmailInput {
   permissions: ProfileCreatepermissionsInput
   authToken: AuthTokenCreateManyWithoutProfileInput
   authInvite: AuthInviteCreateManyWithoutProfileInput
-  invites: AuthInviteCreateManyWithoutInvitedByInput
   results: ResultCreateManyWithoutUserInput
   teacherIn: ClassCreateManyWithoutCreatorInput
   studentIn: ClassCreateManyWithoutStudentsInput
@@ -2653,7 +2694,6 @@ input ProfileCreateWithoutAuthInviteInput {
   permissions: ProfileCreatepermissionsInput
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authToken: AuthTokenCreateManyWithoutProfileInput
-  invites: AuthInviteCreateManyWithoutInvitedByInput
   results: ResultCreateManyWithoutUserInput
   teacherIn: ClassCreateManyWithoutCreatorInput
   studentIn: ClassCreateManyWithoutStudentsInput
@@ -2664,19 +2704,6 @@ input ProfileCreateWithoutAuthTokenInput {
   username: String!
   permissions: ProfileCreatepermissionsInput
   authEmail: AuthEmailCreateManyWithoutProfileInput
-  authInvite: AuthInviteCreateManyWithoutProfileInput
-  invites: AuthInviteCreateManyWithoutInvitedByInput
-  results: ResultCreateManyWithoutUserInput
-  teacherIn: ClassCreateManyWithoutCreatorInput
-  studentIn: ClassCreateManyWithoutStudentsInput
-}
-
-input ProfileCreateWithoutInvitesInput {
-  id: ID
-  username: String!
-  permissions: ProfileCreatepermissionsInput
-  authEmail: AuthEmailCreateManyWithoutProfileInput
-  authToken: AuthTokenCreateManyWithoutProfileInput
   authInvite: AuthInviteCreateManyWithoutProfileInput
   results: ResultCreateManyWithoutUserInput
   teacherIn: ClassCreateManyWithoutCreatorInput
@@ -2690,7 +2717,6 @@ input ProfileCreateWithoutResultsInput {
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authToken: AuthTokenCreateManyWithoutProfileInput
   authInvite: AuthInviteCreateManyWithoutProfileInput
-  invites: AuthInviteCreateManyWithoutInvitedByInput
   teacherIn: ClassCreateManyWithoutCreatorInput
   studentIn: ClassCreateManyWithoutStudentsInput
 }
@@ -2702,7 +2728,6 @@ input ProfileCreateWithoutStudentInInput {
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authToken: AuthTokenCreateManyWithoutProfileInput
   authInvite: AuthInviteCreateManyWithoutProfileInput
-  invites: AuthInviteCreateManyWithoutInvitedByInput
   results: ResultCreateManyWithoutUserInput
   teacherIn: ClassCreateManyWithoutCreatorInput
 }
@@ -2714,7 +2739,6 @@ input ProfileCreateWithoutTeacherInInput {
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authToken: AuthTokenCreateManyWithoutProfileInput
   authInvite: AuthInviteCreateManyWithoutProfileInput
-  invites: AuthInviteCreateManyWithoutInvitedByInput
   results: ResultCreateManyWithoutUserInput
   studentIn: ClassCreateManyWithoutStudentsInput
 }
@@ -2877,7 +2901,6 @@ input ProfileUpdateDataInput {
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
-  invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
   teacherIn: ClassUpdateManyWithoutCreatorInput
   studentIn: ClassUpdateManyWithoutStudentsInput
@@ -2889,7 +2912,6 @@ input ProfileUpdateInput {
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
-  invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
   teacherIn: ClassUpdateManyWithoutCreatorInput
   studentIn: ClassUpdateManyWithoutStudentsInput
@@ -2950,13 +2972,6 @@ input ProfileUpdateOneRequiredWithoutAuthTokenInput {
   upsert: ProfileUpsertWithoutAuthTokenInput
 }
 
-input ProfileUpdateOneRequiredWithoutInvitesInput {
-  create: ProfileCreateWithoutInvitesInput
-  connect: ProfileWhereUniqueInput
-  update: ProfileUpdateWithoutInvitesDataInput
-  upsert: ProfileUpsertWithoutInvitesInput
-}
-
 input ProfileUpdateOneRequiredWithoutResultsInput {
   create: ProfileCreateWithoutResultsInput
   connect: ProfileWhereUniqueInput
@@ -2980,7 +2995,6 @@ input ProfileUpdateWithoutAuthEmailDataInput {
   permissions: ProfileUpdatepermissionsInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
-  invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
   teacherIn: ClassUpdateManyWithoutCreatorInput
   studentIn: ClassUpdateManyWithoutStudentsInput
@@ -2991,7 +3005,6 @@ input ProfileUpdateWithoutAuthInviteDataInput {
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
-  invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
   teacherIn: ClassUpdateManyWithoutCreatorInput
   studentIn: ClassUpdateManyWithoutStudentsInput
@@ -3001,18 +3014,6 @@ input ProfileUpdateWithoutAuthTokenDataInput {
   username: String
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
-  authInvite: AuthInviteUpdateManyWithoutProfileInput
-  invites: AuthInviteUpdateManyWithoutInvitedByInput
-  results: ResultUpdateManyWithoutUserInput
-  teacherIn: ClassUpdateManyWithoutCreatorInput
-  studentIn: ClassUpdateManyWithoutStudentsInput
-}
-
-input ProfileUpdateWithoutInvitesDataInput {
-  username: String
-  permissions: ProfileUpdatepermissionsInput
-  authEmail: AuthEmailUpdateManyWithoutProfileInput
-  authToken: AuthTokenUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
   results: ResultUpdateManyWithoutUserInput
   teacherIn: ClassUpdateManyWithoutCreatorInput
@@ -3025,7 +3026,6 @@ input ProfileUpdateWithoutResultsDataInput {
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
-  invites: AuthInviteUpdateManyWithoutInvitedByInput
   teacherIn: ClassUpdateManyWithoutCreatorInput
   studentIn: ClassUpdateManyWithoutStudentsInput
 }
@@ -3036,7 +3036,6 @@ input ProfileUpdateWithoutStudentInDataInput {
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
-  invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
   teacherIn: ClassUpdateManyWithoutCreatorInput
 }
@@ -3047,7 +3046,6 @@ input ProfileUpdateWithoutTeacherInDataInput {
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
-  invites: AuthInviteUpdateManyWithoutInvitedByInput
   results: ResultUpdateManyWithoutUserInput
   studentIn: ClassUpdateManyWithoutStudentsInput
 }
@@ -3075,11 +3073,6 @@ input ProfileUpsertWithoutAuthInviteInput {
 input ProfileUpsertWithoutAuthTokenInput {
   update: ProfileUpdateWithoutAuthTokenDataInput!
   create: ProfileCreateWithoutAuthTokenInput!
-}
-
-input ProfileUpsertWithoutInvitesInput {
-  update: ProfileUpdateWithoutInvitesDataInput!
-  create: ProfileCreateWithoutInvitesInput!
 }
 
 input ProfileUpsertWithoutResultsInput {
@@ -3196,9 +3189,6 @@ input ProfileWhereInput {
   authInvite_every: AuthInviteWhereInput
   authInvite_some: AuthInviteWhereInput
   authInvite_none: AuthInviteWhereInput
-  invites_every: AuthInviteWhereInput
-  invites_some: AuthInviteWhereInput
-  invites_none: AuthInviteWhereInput
   results_every: ResultWhereInput
   results_some: ResultWhereInput
   results_none: ResultWhereInput
@@ -3253,7 +3243,7 @@ type Result implements Node {
   experiment: Experiment!
   user: Profile!
   quantity: Int!
-  data: String
+  data: Json
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -3271,7 +3261,7 @@ type ResultConnection {
 input ResultCreateInput {
   id: ID
   quantity: Int!
-  data: String
+  data: Json
   experiment: ExperimentCreateOneInput!
   user: ProfileCreateOneWithoutResultsInput!
 }
@@ -3284,7 +3274,7 @@ input ResultCreateManyWithoutUserInput {
 input ResultCreateWithoutUserInput {
   id: ID
   quantity: Int!
-  data: String
+  data: Json
   experiment: ExperimentCreateOneInput!
 }
 
@@ -3313,7 +3303,7 @@ enum ResultOrderByInput {
 type ResultPreviousValues {
   id: ID!
   quantity: Int!
-  data: String
+  data: Json
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -3389,46 +3379,6 @@ input ResultScalarWhereInput {
 
   """All values greater than or equal the given value."""
   quantity_gte: Int
-  data: String
-
-  """All values that are not equal to given value."""
-  data_not: String
-
-  """All values that are contained in given list."""
-  data_in: [String!]
-
-  """All values that are not contained in given list."""
-  data_not_in: [String!]
-
-  """All values less than the given value."""
-  data_lt: String
-
-  """All values less than or equal the given value."""
-  data_lte: String
-
-  """All values greater than the given value."""
-  data_gt: String
-
-  """All values greater than or equal the given value."""
-  data_gte: String
-
-  """All values containing the given string."""
-  data_contains: String
-
-  """All values not containing the given string."""
-  data_not_contains: String
-
-  """All values starting with the given string."""
-  data_starts_with: String
-
-  """All values not starting with the given string."""
-  data_not_starts_with: String
-
-  """All values ending with the given string."""
-  data_ends_with: String
-
-  """All values not ending with the given string."""
-  data_not_ends_with: String
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -3516,19 +3466,19 @@ input ResultSubscriptionWhereInput {
 
 input ResultUpdateInput {
   quantity: Int
-  data: String
+  data: Json
   experiment: ExperimentUpdateOneRequiredInput
   user: ProfileUpdateOneRequiredWithoutResultsInput
 }
 
 input ResultUpdateManyDataInput {
   quantity: Int
-  data: String
+  data: Json
 }
 
 input ResultUpdateManyMutationInput {
   quantity: Int
-  data: String
+  data: Json
 }
 
 input ResultUpdateManyWithoutUserInput {
@@ -3550,7 +3500,7 @@ input ResultUpdateManyWithWhereNestedInput {
 
 input ResultUpdateWithoutUserDataInput {
   quantity: Int
-  data: String
+  data: Json
   experiment: ExperimentUpdateOneRequiredInput
 }
 
@@ -3636,46 +3586,6 @@ input ResultWhereInput {
 
   """All values greater than or equal the given value."""
   quantity_gte: Int
-  data: String
-
-  """All values that are not equal to given value."""
-  data_not: String
-
-  """All values that are contained in given list."""
-  data_in: [String!]
-
-  """All values that are not contained in given list."""
-  data_not_in: [String!]
-
-  """All values less than the given value."""
-  data_lt: String
-
-  """All values less than or equal the given value."""
-  data_lte: String
-
-  """All values greater than the given value."""
-  data_gt: String
-
-  """All values greater than or equal the given value."""
-  data_gte: String
-
-  """All values containing the given string."""
-  data_contains: String
-
-  """All values not containing the given string."""
-  data_not_contains: String
-
-  """All values starting with the given string."""
-  data_starts_with: String
-
-  """All values not starting with the given string."""
-  data_not_starts_with: String
-
-  """All values ending with the given string."""
-  data_ends_with: String
-
-  """All values not ending with the given string."""
-  data_not_ends_with: String
   createdAt: DateTime
 
   """All values that are not equal to given value."""

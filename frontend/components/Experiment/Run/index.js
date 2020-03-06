@@ -24,14 +24,14 @@ class RunExperiment extends Component {
             {addResult => (
               <ExperimentWindow
                 settings={{
-                  script: 'Rating Task',
+                  script: 'Risk',
                   params: { iti: 1000 },
                   eventCallback: e => {
                     console.log('Event callback', e);
                   },
-                  on_finish: csv => {
-                    console.log('data', csv);
-                    addResult({ variables: { data: csv } });
+                  on_finish: json => {
+                    console.log('json data', json);
+                    addResult({ variables: { data: json } });
                     Router.push('/bank');
                   },
                 }}

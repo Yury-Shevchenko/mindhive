@@ -5,7 +5,13 @@ import Link from 'next/link';
 import { StyledExperimentCard } from './styles';
 
 import DeleteExperiment from '../Experiment/Delete/index';
+
 import { ContainerOnlyForScientists } from '../Permissions/Scientist/index';
+import { ContainerOnlyForStudents } from '../Permissions/Student/index';
+import { ContainerOnlyForNoProfile } from '../Permissions/NoProfile/index';
+import { ContainerOnlyForProfile } from '../Permissions/Profile/index';
+
+import TokenSignup from '../Sign/Token/index';
 
 class ExperimentCard extends Component {
   // prop types https://reactjs.org/docs/typechecking-with-proptypes.html
@@ -30,6 +36,7 @@ class ExperimentCard extends Component {
             <p>{experiment.description}</p>
           </a>
         </Link>
+
         <ContainerOnlyForScientists>
           <Link
             href={{
@@ -43,19 +50,37 @@ class ExperimentCard extends Component {
           </Link>
           <DeleteExperiment id={experiment.id}>Delete</DeleteExperiment>
         </ContainerOnlyForScientists>
-        <Link
-          href={{
-            pathname: '/exp/run',
-            query: { id: experiment.id },
-          }}
-        >
-          <a>
-            <h2>Run</h2>
-          </a>
-        </Link>
+
+        <ContainerOnlyForProfile>
+          <Link
+            href={{
+              pathname: '/exp/run',
+              query: { id: experiment.id },
+            }}
+          >
+            <a>
+              <h2>Run</h2>
+            </a>
+          </Link>
+        </ContainerOnlyForProfile>
+
+        <ContainerOnlyForNoProfile>
+          <TokenSignup redirect={experiment.id} />
+        </ContainerOnlyForNoProfile>
       </StyledExperimentCard>
     );
   }
 }
 
 export default ExperimentCard;
+
+// <Link
+//   href={{
+//     pathname: '/exp/run',
+//     query: { id: experiment.id },
+//   }}
+// >
+//   <a>
+//     <h2>Sign up and run</h2>
+//   </a>
+// </Link>

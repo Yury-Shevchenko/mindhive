@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
+import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
 const JOIN_CLASS_MUTATION = gql`
   mutation JOIN_CLASS_MUTATION($id: ID!) {
@@ -18,6 +19,7 @@ class JoinClass extends Component {
         mutation={JOIN_CLASS_MUTATION}
         variables={{ id: this.props.id }}
         update={this.update}
+        refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >
         {(joinClass, { error }) => (
           <button

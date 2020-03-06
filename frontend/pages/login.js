@@ -1,9 +1,11 @@
-import Login from '../components/Login/Email/index';
+import EmailLogin from '../components/Login/Email/index';
+import InviteLogin from '../components/Login/Invite/index';
 import Page from '../components/Page/index';
 
 const LoginPage = props => (
   <Page>
-    <Login />
+    <EmailLogin />
+    <InviteLogin />
   </Page>
 );
 

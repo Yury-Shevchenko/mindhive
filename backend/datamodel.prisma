@@ -15,7 +15,6 @@ type Profile {
   authEmail: [AuthEmail]!
   authToken: [AuthToken]!
   authInvite: [AuthInvite]! @relation(name:"Owner")
-  invites: [AuthInvite]! @relation(name:"Invite")
   results: [Result]!
   teacherIn: [Class]! @relation(name:"Classcreator")
   studentIn: [Class]! @relation(name:"Studentofclass")
@@ -40,8 +39,7 @@ type AuthToken {
 type AuthInvite {
   id: ID! @id
   profile: Profile! @relation(name:"Owner")
-  invitedBy: Profile! @relation(name:"Invite")
-  // TODO change invitedBy to the class (students create accounts by signing into the class, so the join the class automatically)
+  invitedIn: Class! @relation(name:"Invite")
 }
 
 type School {
@@ -65,6 +63,7 @@ type Class {
   updatedAt: DateTime! @updatedAt
   creator: Profile! @relation(name:"Classcreator")
   students: [Profile]! @relation(name:"Studentofclass")
+  invites: [AuthInvite]! @relation(name:"Invite")
 }
 
 type Experiment {
@@ -83,7 +82,7 @@ type Result {
   experiment: Experiment! #relationship to Experiment
   user: Profile! #relationship to Profile
   quantity: Int!
-  data: String
+  data: Json
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

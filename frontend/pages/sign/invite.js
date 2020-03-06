@@ -3,7 +3,7 @@ import Page from '../../components/Page/index';
 
 const InviteSignupPage = ({ query }) => (
   <Page>
-    <InviteSignup invitedBy={query.id} />
+    <InviteSignup invitedIn={query.id} />
   </Page>
 );
 
