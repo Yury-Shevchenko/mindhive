@@ -12,8 +12,7 @@
     "heroku-postbuild": "next build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "testcafe": "testcafe chrome tests/",
-    "heroku-postbuild": "next build",
+    "testcafe": "testcafe chrome tests/"
   },
   "author": "",
   "license": "ISC",
