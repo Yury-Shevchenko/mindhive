@@ -12,7 +12,8 @@
     "heroku-postbuild": "next build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "testcafe": "testcafe chrome tests/"
+    "testcafe": "testcafe chrome tests/",
+    "export": "npm run build && next export"
   },
   "author": "",
   "license": "ISC",
@@ -60,6 +61,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "frontmatter-markdown-loader": "^3.2.0",
     "graphql-tools": "^4.0.0",
     "jest": "^23.6.0",
     "jest-transform-graphql": "^2.1.0",

@@ -1,5 +1,5 @@
-#endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: https://mindhive-production-b2502bdee8.herokuapp.com/mindhive-prod/dev
+endpoint: ${env:PRISMA_ENDPOINT}
+#endpoint: https://mindhive-production-b2502bdee8.herokuapp.com/mindhive-prod/dev
 datamodel: datamodel.prisma
 secret: ${env:PRISMA_SECRET}
 hooks:
