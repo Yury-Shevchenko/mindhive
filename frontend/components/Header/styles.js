@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Logo = styled.h1`
-  font-size: 4rem;
   margin-left: 2rem;
   position: relative;
   z-index: 2;
@@ -19,7 +18,7 @@ export const Logo = styled.h1`
 
 export const StyledHeader = styled.header`
   .bar {
-    border-bottom: 10px solid ${props => props.theme.black};
+    border-bottom: 3px solid ${props => props.theme.black};
     display: grid;
     grid-template-columns: auto 1fr;
     justify-content: space-between;
