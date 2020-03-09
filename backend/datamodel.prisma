@@ -18,6 +18,9 @@ type Profile {
   results: [Result]!
   teacherIn: [Class]! @relation(name:"Classcreator")
   studentIn: [Class]! @relation(name:"Studentofclass")
+  image: String
+  largeImage: String
+  info: Json
 }
 
 type AuthEmail {

@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/shevchenko_yury-d70d0e/mindHive-backend/dev
-# timestamp: Fri Mar 06 2020 13:52:52 GMT+0100 (Central European Standard Time)
+# timestamp: Mon Mar 09 2020 14:56:14 GMT+0100 (Central European Standard Time)
 
 type AggregateAuthEmail {
   count: Int!
@@ -2614,6 +2614,9 @@ type Profile implements Node {
   results(where: ResultWhereInput, orderBy: ResultOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Result!]
   teacherIn(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Class!]
   studentIn(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Class!]
+  image: String
+  largeImage: String
+  info: Json
 }
 
 """A connection to a list of items."""
@@ -2629,6 +2632,9 @@ type ProfileConnection {
 input ProfileCreateInput {
   id: ID
   username: String!
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileCreatepermissionsInput
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authToken: AuthTokenCreateManyWithoutProfileInput
@@ -2680,6 +2686,9 @@ input ProfileCreatepermissionsInput {
 input ProfileCreateWithoutAuthEmailInput {
   id: ID
   username: String!
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileCreatepermissionsInput
   authToken: AuthTokenCreateManyWithoutProfileInput
   authInvite: AuthInviteCreateManyWithoutProfileInput
@@ -2691,6 +2700,9 @@ input ProfileCreateWithoutAuthEmailInput {
 input ProfileCreateWithoutAuthInviteInput {
   id: ID
   username: String!
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileCreatepermissionsInput
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authToken: AuthTokenCreateManyWithoutProfileInput
@@ -2702,6 +2714,9 @@ input ProfileCreateWithoutAuthInviteInput {
 input ProfileCreateWithoutAuthTokenInput {
   id: ID
   username: String!
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileCreatepermissionsInput
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authInvite: AuthInviteCreateManyWithoutProfileInput
@@ -2713,6 +2728,9 @@ input ProfileCreateWithoutAuthTokenInput {
 input ProfileCreateWithoutResultsInput {
   id: ID
   username: String!
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileCreatepermissionsInput
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authToken: AuthTokenCreateManyWithoutProfileInput
@@ -2724,6 +2742,9 @@ input ProfileCreateWithoutResultsInput {
 input ProfileCreateWithoutStudentInInput {
   id: ID
   username: String!
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileCreatepermissionsInput
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authToken: AuthTokenCreateManyWithoutProfileInput
@@ -2735,6 +2756,9 @@ input ProfileCreateWithoutStudentInInput {
 input ProfileCreateWithoutTeacherInInput {
   id: ID
   username: String!
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileCreatepermissionsInput
   authEmail: AuthEmailCreateManyWithoutProfileInput
   authToken: AuthTokenCreateManyWithoutProfileInput
@@ -2757,12 +2781,21 @@ enum ProfileOrderByInput {
   id_DESC
   username_ASC
   username_DESC
+  image_ASC
+  image_DESC
+  largeImage_ASC
+  largeImage_DESC
+  info_ASC
+  info_DESC
 }
 
 type ProfilePreviousValues {
   id: ID!
   username: String!
   permissions: [Permission!]!
+  image: String
+  largeImage: String
+  info: Json
 }
 
 input ProfileScalarWhereInput {
@@ -2854,6 +2887,86 @@ input ProfileScalarWhereInput {
 
   """All values not ending with the given string."""
   username_not_ends_with: String
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
+  largeImage: String
+
+  """All values that are not equal to given value."""
+  largeImage_not: String
+
+  """All values that are contained in given list."""
+  largeImage_in: [String!]
+
+  """All values that are not contained in given list."""
+  largeImage_not_in: [String!]
+
+  """All values less than the given value."""
+  largeImage_lt: String
+
+  """All values less than or equal the given value."""
+  largeImage_lte: String
+
+  """All values greater than the given value."""
+  largeImage_gt: String
+
+  """All values greater than or equal the given value."""
+  largeImage_gte: String
+
+  """All values containing the given string."""
+  largeImage_contains: String
+
+  """All values not containing the given string."""
+  largeImage_not_contains: String
+
+  """All values starting with the given string."""
+  largeImage_starts_with: String
+
+  """All values not starting with the given string."""
+  largeImage_not_starts_with: String
+
+  """All values ending with the given string."""
+  largeImage_ends_with: String
+
+  """All values not ending with the given string."""
+  largeImage_not_ends_with: String
 }
 
 type ProfileSubscriptionPayload {
@@ -2897,6 +3010,9 @@ input ProfileSubscriptionWhereInput {
 
 input ProfileUpdateDataInput {
   username: String
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
@@ -2908,6 +3024,9 @@ input ProfileUpdateDataInput {
 
 input ProfileUpdateInput {
   username: String
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
@@ -2919,11 +3038,17 @@ input ProfileUpdateInput {
 
 input ProfileUpdateManyDataInput {
   username: String
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileUpdatepermissionsInput
 }
 
 input ProfileUpdateManyMutationInput {
   username: String
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileUpdatepermissionsInput
 }
 
@@ -2992,6 +3117,9 @@ input ProfileUpdatepermissionsInput {
 
 input ProfileUpdateWithoutAuthEmailDataInput {
   username: String
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileUpdatepermissionsInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
@@ -3002,6 +3130,9 @@ input ProfileUpdateWithoutAuthEmailDataInput {
 
 input ProfileUpdateWithoutAuthInviteDataInput {
   username: String
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
@@ -3012,6 +3143,9 @@ input ProfileUpdateWithoutAuthInviteDataInput {
 
 input ProfileUpdateWithoutAuthTokenDataInput {
   username: String
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authInvite: AuthInviteUpdateManyWithoutProfileInput
@@ -3022,6 +3156,9 @@ input ProfileUpdateWithoutAuthTokenDataInput {
 
 input ProfileUpdateWithoutResultsDataInput {
   username: String
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
@@ -3032,6 +3169,9 @@ input ProfileUpdateWithoutResultsDataInput {
 
 input ProfileUpdateWithoutStudentInDataInput {
   username: String
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
@@ -3042,6 +3182,9 @@ input ProfileUpdateWithoutStudentInDataInput {
 
 input ProfileUpdateWithoutTeacherInDataInput {
   username: String
+  image: String
+  largeImage: String
+  info: Json
   permissions: ProfileUpdatepermissionsInput
   authEmail: AuthEmailUpdateManyWithoutProfileInput
   authToken: AuthTokenUpdateManyWithoutProfileInput
@@ -3180,6 +3323,86 @@ input ProfileWhereInput {
 
   """All values not ending with the given string."""
   username_not_ends_with: String
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
+  largeImage: String
+
+  """All values that are not equal to given value."""
+  largeImage_not: String
+
+  """All values that are contained in given list."""
+  largeImage_in: [String!]
+
+  """All values that are not contained in given list."""
+  largeImage_not_in: [String!]
+
+  """All values less than the given value."""
+  largeImage_lt: String
+
+  """All values less than or equal the given value."""
+  largeImage_lte: String
+
+  """All values greater than the given value."""
+  largeImage_gt: String
+
+  """All values greater than or equal the given value."""
+  largeImage_gte: String
+
+  """All values containing the given string."""
+  largeImage_contains: String
+
+  """All values not containing the given string."""
+  largeImage_not_contains: String
+
+  """All values starting with the given string."""
+  largeImage_starts_with: String
+
+  """All values not starting with the given string."""
+  largeImage_not_starts_with: String
+
+  """All values ending with the given string."""
+  largeImage_ends_with: String
+
+  """All values not ending with the given string."""
+  largeImage_not_ends_with: String
   authEmail_every: AuthEmailWhereInput
   authEmail_some: AuthEmailWhereInput
   authEmail_none: AuthEmailWhereInput
