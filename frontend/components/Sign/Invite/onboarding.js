@@ -34,10 +34,10 @@ const INVITE_SIGNUP_MUTATION = gql`
 
 class OnboardingSignupWithClassInvite extends Component {
   state = {
-    username: 'new test student',
-    invitedIn: 'ck7kjt9rxi4di0950w5txp21l',
-    image: 'nothing',
-    largeImage: 'largenothing',
+    username: '',
+    invitedIn: '',
+    image: '',
+    largeImage: '',
     info: {
       interests: [],
       other1: '',
@@ -136,6 +136,10 @@ class OnboardingSignupWithClassInvite extends Component {
                           value={this.state.invitedIn}
                           onChange={this.handleChange}
                         >
+                          <option value="no">
+                            {' '}
+                            --- Choose your class ---{' '}
+                          </option>
                           {classes.map(schoolclass => (
                             <option value={schoolclass.id} key={schoolclass.id}>
                               {schoolclass.title}

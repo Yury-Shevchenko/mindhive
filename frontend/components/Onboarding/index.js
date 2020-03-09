@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Component } from 'react';
 import { attributes, react as HomeContent } from '../../content/home.md';
-import InviteLogin from '../Login/Invite/onboarding';
+import OnboardingSignupWithClassInvite from '../Sign/Invite/onboarding';
 
 class Onboarding extends Component {
   render() {
@@ -14,7 +14,7 @@ class Onboarding extends Component {
         <article>
           <h1>{title}</h1>
           <HomeContent />
-          <InviteLogin />
+          <OnboardingSignupWithClassInvite />
         </article>
       </>
     );
@@ -22,13 +22,3 @@ class Onboarding extends Component {
 }
 
 export default Onboarding;
-
-// <h2>Links</h2>
-// <ul>
-//   {links.map((link, k) => (
-//     <li key={k}>
-//       <h2>{link.name}</h2>
-//       <p>{link.description}</p>
-//     </li>
-//   ))}
-// </ul>
