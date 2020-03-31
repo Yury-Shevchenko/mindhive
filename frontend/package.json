@@ -30,7 +30,7 @@
     "graphql-tag": "^2.10.3",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
-    "next": "^9.2.1",
+    "next": "^9.3.2",
     "next-with-apollo": "^5.0.0",
     "nprogress": "^0.2.0",
     "plotly.js": "^1.52.3",
